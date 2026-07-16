@@ -390,6 +390,72 @@ los navegadores lo piden ahí por default aunque haya `<link>` tags),
 referenciados por ningún `<link>` — el `.ico` ya trae esos tamaños
 embebidos, tenerlos sueltos era bloat sin uso real.
 
+### V9 — auditoría palabra por palabra contra el PDF original
+El usuario pidió una verificación "hiper rigurosa": que toda la
+información del sitio (medidas, números, términos) sea fiel al PDF
+fuente, y que si algo ya estaba perfecto no se tocara. Se releyó el
+PDF completo (texto extraído + renders a 4-6x de las páginas con
+texto chico, para no confiar solo en la extracción automática) y se
+comparó oración por oración contra `index.html`. Método: no asumir
+que las reescrituras anteriores (V1→V8) habían preservado el
+contenido fiel — cada vez que se reescribió el HTML se corría riesgo
+de perder o agregar detalle sin querer.
+
+**Errores reales encontrados y corregidos:**
+- **Piso de las unidades** (el más importante): el sitio decía
+  "disponible en PB y 1º piso" en tres lugares (los dos `.unit-meta`
+  y el copy de la sección Unidades). El PDF dice "Disponible en
+  pisos 1 y 2" — confirmado en tres ubicaciones distintas (dos veces
+  en la página 4, una vez en la página 5, con los propios números de
+  unidad 101/201 y 102/202 confirmando piso 1 y piso 2, no planta
+  baja). Corregido a "pisos 1 y 2" en las tres ubicaciones.
+- **"20 cuotas mensuales"**: el PDF dice "20 cuotas consecutivas en
+  USD" — en ningún lado dice "mensuales". Se había agregado esa
+  palabra en una reescritura anterior sin verificar contra la
+  fuente. Se sacó "mensuales" del payment-note.
+- **Especificaciones con detalle recortado de más** en reescrituras
+  previas (probablemente al "pulir" el copy se perdió precisión):
+  - Puertas interiores: faltaba "pomelas de primera calidad" en las
+    bisagras Sidañez.
+  - Pisos: el exterior no repetía la marca/línea/color (Cerro Negro
+    gris malba grafito), el PDF sí la repite explícitamente para
+    ambos.
+  - Confort: faltaban los detalles de instalación del aire
+    acondicionado (línea de cobre aislada, drenajes de agua,
+    instalación eléctrica).
+  - Cocinas: faltaban varios ítems reales del PDF, incluida una
+    **medida** (revestimiento cerámico sobre mesada de 60&nbsp;cm de
+    altura) y el tipo de grifería (monocomando). También faltaban
+    alacena, módulos de guardado, cantos de ABS, puertas batientes.
+  - Dormitorios: faltaba el mecanismo de los placares (guía superior,
+    carrito, guía inferior) y que la terminación en melamina es
+    "exterior e interior" (ambas caras).
+  - Baños: faltaba **toda** la lista de artefactos del inodoro
+    (inodoro con mochila, bidet, tapa asiento de madera laqueada) y
+    qué griferías son FV (ducha, bacha y bidet).
+
+**Verificado y confirmado correcto (sin cambios):** años/edificios/m²
+de AFRa (30/56/30.000), las 4 razones del terreno con sus medidas (22
+metros, 100 metros, 15 y 20 minutos), la lista de otros edificios de
+AFRa con sus años, m² cubiertos/semicubiertos/totales y dimensiones de
+ambientes de ambas unidades, fechas de obra (septiembre 2025 → julio
+2027), 40% inicial, nombres de calles del mapa (contrastados contra
+la imagen del mapa, no solo el texto), y el resto del texto de
+carpinterías.
+
+**Decisión editorial, no error**: el PDF tiene dos typos reales
+("Chacharita" en vez de "Chacarita", "múdolos" en vez de "módulos")
+— son nombres/palabras reales mal tipeados en el material original,
+no datos que puedan variar. Se mantiene la ortografía correcta en el
+sitio en vez de reproducir el typo, porque el pedido de fidelidad es
+sobre la información (medidas, términos, datos), no sobre errores de
+tipeo de un tercero. "A 15”/20” de..." se interpretó como minutos
+(convención estándar en inmobiliarias argentinas para tiempo de
+viaje) — no está el texto "minutos" en el PDF, pero tampoco hay otra
+unidad plausible dado el contexto (distancias en cuadras/avenidas), y
+ya estaba interpretado así desde V1. No se identificó una alternativa
+mejor, se dejó como está.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
