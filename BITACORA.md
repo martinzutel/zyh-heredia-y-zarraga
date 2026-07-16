@@ -658,6 +658,32 @@ prueba con un link "roto" a propósito (agregando `?v=2` al final de
 la URL) o que use el debugger de Facebook
 (developers.facebook.com/tools/debug/) para forzar el recacheo.
 
+### V15 — la fachada no se destacaba en mobile
+El usuario pidió, específicamente para mobile: que la fachada se
+destaque más, y que tanto la fachada como la obra se vean completas.
+
+**Diagnóstico**: la obra (`.obra-media`) ya estaba bien — su
+`aspect-ratio:3/4` coincide exacto con la foto real (1400×1866 =
+0,75), así que `object-fit:cover` no recorta nada ahí, en ningún
+ancho de pantalla. El problema real estaba en la fachada de la
+galería: en mobile (`≤900px` y `≤520px`) tenía una altura fija corta
+(420px, 280px) con `object-fit:contain` — al no coincidir esa caja
+angosta-y-corta con la proporción real de la foto (0,707, alta), la
+imagen quedaba chica y centrada con barras vacías de
+`--concrete-2` a los costados. Técnicamente "completa" (no
+recortada) pero visualmente insignificante — el problema no era el
+recorte sino que no se destacaba.
+
+**Fix**: mismo criterio que ya funcionó para `.obra-media` — en vez
+de una altura fija corta, `.gallery figure.tall` pasa a
+`aspect-ratio:829/1172` (la proporción real exacta) a todo el ancho
+de columna por debajo de 900px. Con la caja calzando exacto con la
+imagen, `object-fit:contain` no genera ningún letterbox (cover y
+contain dan el mismo resultado cuando las proporciones coinciden), y
+al usar el ancho completo la imagen queda mucho más grande y
+prominente — la primera y más grande del bloque de interiores en
+mobile, en vez de una miniatura con bordes vacíos.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
