@@ -584,6 +584,32 @@ layout alrededor de ella.
    unidad (m², ambientes) no cambian — son las mismas del PDF, siguen
    siendo la unidad de piso 1 de cada tipo, no una unidad nueva.
 
+### V13 — el fix de V12 para la fachada no funcionaba de verdad
+El usuario avisó que la foto de fachada seguía demasiado alta después
+del fix de V12. Al revisar el CSS, el enfoque de V12 tenía un
+problema real: dependía de `aspect-ratio:auto` + el stretch implícito
+de CSS Grid para que `.gallery figure.tall` "adivinara" la altura de
+su columna vecina (`.gallery-stack`). Eso es frágil — con
+`object-fit:contain` y `height:100%` sobre un contenedor sin altura
+propia definida, el navegador puede terminar resolviendo el tamaño
+igual usando la proporción intrínseca de la imagen (829:1172), que es
+exactamente lo que se quería evitar. No se pudo confirmar visualmente
+en su momento (Chrome extension sin conectar) y el supuesto resultó
+mal. **Lección: no confiar en comportamiños de stretch/auto
+implícitos de CSS Grid para casos así sin poder verificarlos en un
+navegador real — usar valores explícitos y deterministas.**
+
+Fix real: se volvió a `height` fijo en px para `.gallery figure.tall`
+(640px desktop / 420px tablet / 280px mobile), igual que en el diseño
+original pre-V11, calculado para calzar con el alto total de
+`.gallery-stack` (308px×2 + 24px gap = 640px, coinciden exacto en
+desktop). La única diferencia respecto al diseño original es
+`object-fit:contain` en vez de `cover` para esa imagen puntual —
+así entra completa dentro de esa caja de 640px sin recortarse
+(con un margen de `--concrete-2` a los costados si hace falta), pero
+la altura de la caja en sí es fija y predecible, no depende de que el
+navegador infiera nada.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
