@@ -257,6 +257,40 @@ tanto bugs reales como oportunidades de pulido:
   que cada clase usada en el HTML tenga regla, y que ninguna variable
   CSS quede sin usar — todo limpio.
 
+### Deploy — GitHub + Vercel
+El repo local venía existiendo desde el principio pero **nunca tuvo
+remoto** (se confirmó con `git remote -v` vacío) hasta esta sesión.
+Se creó y conectó todo:
+
+- **GitHub**: `gh auth login --web` (login interactivo, lo hizo el
+  usuario — no es algo que se pueda hacer en su nombre). Repo creado
+  con `gh repo create zyh-heredia-y-zarraga --public --source=.
+  --remote=origin --push`. Nombre y descripción son descriptivos a
+  pedido del usuario (no `afra-zyh` genérico). **Es público a pedido
+  explícito del usuario** — el clasificador de auto-mode bloqueó el
+  primer intento porque el usuario solo había dicho "creá el repo"
+  sin especificar visibilidad; se le preguntó explícitamente y
+  contestó que lo quiere público porque tiene que quedar como uno de
+  sus trabajos mostrables en su perfil de GitHub. **No asumir
+  público por defecto en repos de este usuario en el futuro sin
+  confirmar** — en este caso puntual sí lo quiere así, pero fue una
+  decisión explícita, no un default.
+  → https://github.com/martinzutel/zyh-heredia-y-zarraga
+- **Vercel**: `npx vercel login` (login interactivo por navegador, lo
+  hizo el usuario). Deploy con `npx vercel --prod`, que además detectó
+  el repo de GitHub y lo conectó automáticamente — **a partir de
+  ahora cada push a `main` dispara un deploy automático en Vercel**,
+  no hace falta correr `vercel --prod` a mano de nuevo salvo que se
+  quiera forzar un deploy sin pushear.
+  → https://zyh-heredia-y-zarraga.vercel.app
+- Sitio estático sin build step (HTML/CSS/JS planos), Vercel lo sirve
+  tal cual sin necesitar `vercel.json` ni configuración adicional.
+- **No se hizo `npm install -g vercel`** porque falló por permisos
+  (`EACCES`, típico de Node instalado sin nvm) y no correspondía usar
+  `sudo` para esto. Se usó `npx --yes vercel <comando>` en su lugar,
+  que funciona igual sin instalación global — usar ese patrón para
+  cualquier comando de Vercel CLI en este proyecto de ahora en más.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
