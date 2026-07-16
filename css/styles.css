@@ -188,21 +188,17 @@ section{padding:clamp(64px, 10vw, 120px) 0;}
 
 /* ---------- gallery / interiors ---------- */
 .gallery{background:var(--concrete);}
-.gallery-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px;}
+.gallery-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px; align-items:start;}
 @media (max-width:900px){ .gallery-grid{grid-template-columns:1fr;} }
 .gallery figure{position:relative; overflow:hidden; border-radius:2px; margin:0;}
-.gallery figure img{width:100%; height:100%; object-fit:cover;}
-.gallery figure.tall{height:640px;}
+.gallery figure img{width:100%; height:100%; object-fit:cover; display:block;}
+/* facade photo keeps its real 3:4 ratio so it's never cropped */
+.gallery figure.tall{aspect-ratio:829 / 1172;}
 .gallery-stack{display:grid; gap:24px;}
-.gallery-stack figure{height:308px;}
-@media (max-width:900px){
-  .gallery figure.tall{height:420px;}
-  .gallery-stack figure{height:260px;}
-}
+.gallery-stack figure{aspect-ratio:16 / 10;}
 @media (max-width:520px){
-  .gallery figure.tall{height:300px;}
   .gallery-stack{grid-template-columns:1fr 1fr;}
-  .gallery-stack figure{height:180px;}
+  .gallery-stack figure{aspect-ratio:auto; height:180px;}
   .gallery-stack figcaption{left:12px; bottom:10px; font-size:10px; padding:5px 8px; max-width:calc(100% - 24px);}
 }
 figcaption{
@@ -213,14 +209,20 @@ figcaption{
   background:rgba(34,36,44,0.62); padding:6px 10px; backdrop-filter:blur(4px);
 }
 
-/* ---------- obra banner ---------- */
-.obra-banner{position:relative; height:46vh; min-height:320px; overflow:hidden;}
-.obra-banner img{width:100%; height:100%; object-fit:cover; object-position:50% 50%;}
-.obra-banner figcaption{left:32px; bottom:24px;}
-@media (max-width:640px){
-  .obra-banner{height:34vh; min-height:240px;}
-  .obra-banner figcaption{left:20px; bottom:16px;}
+/* ---------- obra en construcción ---------- */
+.obra{background:var(--ink); color:var(--white);}
+.obra .eyebrow{color:rgba(255,255,255,0.68);}
+.obra .section-head p{color:rgba(255,255,255,0.72);}
+.obra-grid{display:grid; grid-template-columns:0.85fr 1fr; gap:64px; align-items:center;}
+@media (max-width:900px){ .obra-grid{grid-template-columns:1fr; gap:32px;} }
+.obra-media{
+  position:relative; margin:0; overflow:hidden; border-radius:2px;
+  /* real photo ratio (3:4) — shows the full building, no crop */
+  aspect-ratio:3 / 4;
+  max-width:460px;
 }
+@media (max-width:900px){ .obra-media{max-width:360px; margin:0 auto;} }
+.obra-media img{width:100%; height:100%; object-fit:cover; display:block;}
 
 /* ---------- units ---------- */
 .units{background:var(--concrete-2);}

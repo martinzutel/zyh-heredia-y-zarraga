@@ -488,6 +488,57 @@ Tres pedidos del usuario en un mismo mensaje:
    unidades ni los unit-card hasta tener esa confirmación** — es un
    dato real de disponibilidad, no algo para asumir.
 
+### V11 — foto de obra nueva (edificio real, no fundación) + fix de recortes
+El usuario pasó una foto nueva (`IMG_3812.HEIC`, cámara de iPhone,
+4284×5712 = exactamente 3:4) que muestra el edificio real ya con
+varios pisos de estructura de hormigón levantados — mucho más
+avanzada que la foto anterior (obreros en los cimientos). Pidió
+reemplazarla y que la sección se adapte para que la imagen "entre
+toda", y por separado que la foto de fachada (`hero-building.jpg`,
+829×1172 ≈ 0,707) deje de verse "recortada cuadrada".
+
+**Conversión HEIC → JPEG**: `PIL.Image.open()` no puede abrir `.heic`
+directamente (falta `pillow-heif`, no instalado). Se usó `sips`
+—herramienta nativa de macOS, ya disponible, sin instalar nada
+nuevo— con `sips -s format jpeg archivo.HEIC --out salida.jpg`. Para
+cualquier `.heic`/`.heif` futuro, este es el camino más simple en
+este entorno.
+
+**Por qué no alcanzaba con la sección anterior**: `.obra-banner` era
+un banner horizontal a sangre (`height:46vh`, ancho completo) pensado
+para una foto panorámica. Una foto vertical 3:4 dentro de eso se
+recorta brutalmente sin importar el `object-position` — no es un
+problema de encuadre (como el bug de V5) sino de que el contenedor y
+la imagen tienen geometrías incompatibles. Se rediseñó como sección
+de dos columnas (mismo patrón que `.lot-grid`: imagen + texto, fondo
+oscuro), con `.obra-media{aspect-ratio:3/4}` calculado exacto contra
+las dimensiones reales del archivo — con la relación de aspecto del
+contenedor igual a la de la imagen, `object-fit:cover` no recorta
+absolutamente nada, es un ajuste perfecto en cualquier tamaño de
+pantalla sin necesitar breakpoints manuales.
+
+**Mismo fix aplicado a la fachada**: se le dio a `.gallery figure.tall`
+`aspect-ratio:829/1172` (la proporción exacta del archivo) en vez de
+una altura fija en px, y se movió la foto de fachada al slot "tall"
+de la galería (antes tenía la foto de living-terraza, que al ser
+panorámica tolera mejor un recorte silencioso). El slot que quedó
+libre ahora lo ocupan las dos fotos de interiores (ambas ~16:10,
+paisaje), con `aspect-ratio:16/10` — nunca están tan lejos de su
+proporción real como para que se note un recorte. Se sacaron los
+`height` fijos en px que había por breakpoint (640/420/300px) porque
+ya no hacen falta: `aspect-ratio` resuelve el alto automáticamente en
+cualquier ancho de pantalla sin escribir media queries a mano —
+código más corto y más robusto a la vez.
+
+**Sin fecha específica en el caption de la obra nueva**: el caption
+anterior decía "cimientos, septiembre 2025", que ya no es cierto para
+esta foto (el edificio tiene varios pisos). No se inventó una fecha
+nueva para no violar el criterio de rigurosidad de V9 — el texto que
+quedó ("La estructura avanza piso a piso, camino a la entrega de
+diciembre 2027") no afirma ninguna fecha de la foto en sí, solo
+reusa hechos ya confirmados (hormigón visto, entrega diciembre 2027).
+Si el usuario da la fecha real de la foto, agregarla.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
