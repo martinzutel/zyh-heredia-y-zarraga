@@ -1,402 +1,298 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-AR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZYH — Zarraga y Heredia | AFRa Arquitectos</title>
-<meta name="description" content="ZYH, Zarraga y Heredia. Fideicomiso al costo en Chacarita / Villa Ortúzar. Entrega julio 2027. Últimas 4 unidades disponibles.">
+<title>ZYH — Heredia y Zarraga | Fideicomiso al Costo</title>
+<meta name="description" content="ZYH, Heredia y Zarraga. Fideicomiso al costo de AFRa Arquitectos en Chacarita / Villa Ortúzar, CABA. Entrega julio 2027. Últimas 4 unidades de 3 ambientes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!-- decorative fixed layer: registration marks, grain, custom cursor -->
-<div class="deco-layer" aria-hidden="true">
-  <span class="corner corner-tl"></span>
-  <span class="corner corner-tr"></span>
-  <span class="corner corner-bl"></span>
-  <span class="corner corner-br"></span>
-  <div class="grain"></div>
-</div>
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
-<div class="progress-bar" id="progressBar"></div>
-
-<header class="site-header" id="siteHeader">
-  <div class="header-inner">
-    <a href="#top" class="brand">ZYH<span class="brand-dot">·</span></a>
-    <nav class="main-nav" id="mainNav">
-      <a href="#ubicacion"><i>01</i>Ubicación</a>
-      <a href="#proyecto"><i>02</i>Proyecto</a>
-      <a href="#unidades"><i>03</i>Unidades</a>
-      <a href="#especificaciones"><i>04</i>Especificaciones</a>
-      <a href="#interiores"><i>05</i>Interiores</a>
-      <a href="#contacto" class="nav-cta">Contacto</a>
+<header class="nav">
+  <div class="nav-inner wrap">
+    <a href="#top" class="brand">ZYH <small>Fideicomiso al costo</small></a>
+    <nav class="links">
+      <a href="#lote">El lote</a>
+      <a href="#galeria">Interiores</a>
+      <a href="#unidades">Unidades</a>
+      <a href="#especificaciones">Especificaciones</a>
+      <a href="#financiacion">Financiación</a>
     </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
-      <span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <a class="nav-cta" href="https://www.estudioafra.com/" target="_blank" rel="noopener">Nuestro estudio</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
+  <nav class="links-mobile" id="mobileNav">
+    <a href="#lote">El lote</a>
+    <a href="#galeria">Interiores</a>
+    <a href="#unidades">Unidades</a>
+    <a href="#especificaciones">Especificaciones</a>
+    <a href="#financiacion">Financiación</a>
+    <a href="https://www.estudioafra.com/" target="_blank" rel="noopener">Nuestro estudio ↗</a>
+  </nav>
 </header>
 
 <main id="top">
 
-  <!-- HERO — asymmetric split, mirrors the brochure's own cover composition -->
-  <section class="hero" id="hero">
-    <div class="hero-panel">
-      <div class="hero-panel-top">
-        <p class="hero-tag" data-split>AFRa Arquitectos</p>
-        <p class="hero-tag hero-tag-mono">Fideicomiso al costo</p>
+<section class="hero">
+  <div class="hero-bg"><img src="assets/images/facade-evening.jpg" alt="Fachada del edificio ZYH al atardecer, esquina Heredia y Zarraga" loading="eager"></div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content wrap">
+    <div class="hero-eyebrow"><span class="rule"></span> AFRa Arquitectos · Chacarita / Villa Ortúzar, CABA</div>
+    <h1>ZYH</h1>
+    <div class="hero-sub">
+      <div class="hero-address">Zarraga y Heredia<span>HEREDIA 1395 ESQUINA ZARRAGA — LOTE DE ESQUINA, 22&nbsp;M DE FRENTE ABIERTO A DOS CALLES</span></div>
+      <div class="hero-stats">
+        <div class="hero-stat"><b>2027</b><span>Entrega julio</span></div>
+        <div class="hero-stat"><b>3&nbsp;amb</b><span>Últimas 4 unidades</span></div>
+        <div class="hero-stat"><b>65–70</b><span>M² totales</span></div>
       </div>
-
-      <h1 class="hero-title">
-        <span class="hero-title-line" data-split>ZYH</span>
-      </h1>
-      <p class="hero-sub" data-split>Zarraga <i>&amp;</i> Heredia</p>
-
-      <ul class="hero-legend">
-        <li><span class="hero-legend-num">30</span><span class="hero-legend-label">Años<br>en el rubro</span></li>
-        <li><span class="hero-legend-num">56</span><span class="hero-legend-label">Edificios<br>construidos</span></li>
-        <li><span class="hero-legend-num">30.000</span><span class="hero-legend-label">M²<br>construidos</span></li>
-      </ul>
-
-      <a href="#unidades" class="btn btn-line">
-        <span>Ver unidades disponibles</span>
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.4"/></svg>
-      </a>
-    </div>
-
-    <div class="hero-media">
-      <img src="assets/images/hero-building.jpg" alt="Render del edificio ZYH, esquina Zarraga y Heredia" loading="eager">
-      <span class="hero-plate">H&nbsp;1395</span>
-      <span class="hero-ruler" aria-hidden="true"></span>
-    </div>
-  </section>
-
-  <!-- marquee strip -->
-  <div class="marquee">
-    <div class="marquee-track">
-      <span>ZYH — ZARRAGA Y HEREDIA&nbsp;&nbsp;◆&nbsp;&nbsp;FIDEICOMISO AL COSTO&nbsp;&nbsp;◆&nbsp;&nbsp;ENTREGA JULIO 2027&nbsp;&nbsp;◆&nbsp;&nbsp;ÚLTIMAS 4 UNIDADES&nbsp;&nbsp;◆&nbsp;&nbsp;</span>
-      <span>ZYH — ZARRAGA Y HEREDIA&nbsp;&nbsp;◆&nbsp;&nbsp;FIDEICOMISO AL COSTO&nbsp;&nbsp;◆&nbsp;&nbsp;ENTREGA JULIO 2027&nbsp;&nbsp;◆&nbsp;&nbsp;ÚLTIMAS 4 UNIDADES&nbsp;&nbsp;◆&nbsp;&nbsp;</span>
     </div>
   </div>
+</section>
 
-  <!-- UBICACION -->
-  <section class="section" id="ubicacion">
-    <div class="section-inner">
-      <div class="sheet-head reveal">
-        <span class="sheet-no">A—01</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">El barrio</span>
-      </div>
-      <h2 class="section-title reveal">Heredia 1395,<br>esquina Zarraga</h2>
-      <p class="lede reveal">Mejor oportunidad de 30 lotes analizados. Realizamos un análisis urbano, edilicio y económico en la zona de Chacarita, Colegiales y Villa Ortúzar: este terreno se destacó por varios motivos como una excelente oportunidad.</p>
-
-      <div class="feature-grid">
-        <div class="feature reveal">
-          <span class="feature-index">01</span>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none"><path d="M8 40V12l16-6 16 6v28" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 24h32" stroke="currentColor" stroke-width="1.4"/><path d="M24 6v34" stroke="currentColor" stroke-width="1.4"/></svg>
-          </div>
-          <h3>Terreno de esquina de gran perímetro</h3>
-          <p>Abierto a ambas calles (22&nbsp;mts), permite generosas posibilidades de asoleamiento y ventilación más allá del tamaño del lote.</p>
+<section class="lot" id="lote">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> El barrio / el terreno</div>
+    <div class="lot-grid">
+      <div class="reveal">
+        <div class="section-head" style="margin-bottom:40px;">
+          <h2>La mejor esquina de 30 lotes analizados.</h2>
+          <p>Antes de elegir este terreno hicimos un análisis urbano, edilicio y económico completo de la zona de Chacarita, Colegiales y Villa Ortúzar. Esta esquina — Heredia 1395 y Zarraga — se destacó por cuatro razones concretas.</p>
         </div>
-        <div class="feature reveal">
-          <span class="feature-index">02</span>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none"><path d="M24 6c6 6 8 12 8 17a8 8 0 1 1-16 0c0-5 2-11 8-17Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M24 31v13" stroke="currentColor" stroke-width="1.4"/></svg>
+        <div class="reasons">
+          <div class="reason">
+            <div class="num">01</div>
+            <div><h4>Terreno de esquina de gran perímetro</h4><p>Abierto a ambas calles con 22 metros de frente, permite generosas posibilidades de asoleamiento y ventilación más allá del tamaño del lote.</p></div>
           </div>
-          <h3>Arbolado antiguo y orientación norte/oeste</h3>
-          <p>Aire puro y sol pleno en ambas fachadas.</p>
-        </div>
-        <div class="feature reveal">
-          <span class="feature-index">03</span>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="17" stroke="currentColor" stroke-width="1.4"/><path d="M24 15v9l6 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="reason">
+            <div class="num">02</div>
+            <div><h4>Arbolado antiguo y orientación norte / oeste</h4><p>Aire puro y sol pleno en ambas fachadas, gracias al arbolado consolidado de la cuadra.</p></div>
           </div>
-          <h3>Oportunidad en costo de la tierra</h3>
-          <p>Costo de pozo a precio Villa Ortúzar, ubicado a 100 metros de Belgrano&nbsp;“R”.</p>
-        </div>
-        <div class="feature reveal">
-          <span class="feature-index">04</span>
-          <div class="feature-icon">
-            <svg viewBox="0 0 48 48" fill="none"><path d="M6 24h36M30 12l12 12-12 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="reason">
+            <div class="num">03</div>
+            <div><h4>Oportunidad en el costo de la tierra</h4><p>Costo de pozo a precio de Villa Ortúzar, ubicado a apenas 100 metros de Belgrano&nbsp;“R”.</p></div>
           </div>
-          <h3>Excelente conectividad y accesibilidad</h3>
-          <p>A 15’ de Av. General Paz por Av. Álvarez Thomas, y a 20’ del centro por Av. Triunvirato + Av. Corrientes.</p>
+          <div class="reason">
+            <div class="num">04</div>
+            <div><h4>Excelente conectividad y accesibilidad</h4><p>A 15 minutos de Av. General Paz por Av. Álvarez Thomas, y a 20 minutos del centro por Av. Triunvirato + Av. Corrientes.</p></div>
+          </div>
         </div>
       </div>
-
-      <div class="map-block reveal">
-        <div class="map-wide">
-          <img src="assets/images/map-wide.jpg" alt="Mapa de ubicación de ZYH entre Belgrano R, Colegiales, Villa Ortúzar y Chacarita">
-          <span class="map-tag">N ↑</span>
-        </div>
-        <div class="map-zoom">
-          <img src="assets/images/map-zoom.jpg" alt="Mapa detallado de la manzana, esquina Zarraga y Heredia">
-        </div>
-      </div>
-
-      <div class="afra-map reveal">
-        <p class="afra-map-title">Otros edificios de AFRa en la zona</p>
-        <ul class="afra-map-list">
-          <li><span>01</span> ZYH <em>(2027)</em></li>
-          <li><span>02</span> Arredondo <em>(2020)</em></li>
-          <li><span>03</span> Zabala <em>(2022)</em></li>
-          <li><span>04</span> Newbery <em>(2020)</em></li>
-        </ul>
+      <div class="lot-maps reveal">
+        <img src="assets/images/map-wide.jpg" alt="Mapa de ubicación de ZYH entre Belgrano R, Colegiales, Villa Ortúzar y Chacarita">
+        <p class="cap">1 ZYH (2027) — 2 Arredondo (2020) — 3 Zabala (2022) — 4 Newbery (2020)</p>
+        <img src="assets/images/map-zoom.jpg" alt="Mapa detallado de la manzana, esquina Zarraga y Heredia">
+        <p class="cap">Av. de los Incas · Av. Álvarez Thomas · Av. Forest · Plaza Zarraga</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROYECTO / FIDEICOMISO -->
-  <section class="section section-dark" id="proyecto">
-    <div class="proyecto-media">
-      <img src="assets/images/construction.jpg" alt="Obra de ZYH en construcción, estructura de hormigón armado">
-      <svg class="blueprint-svg" viewBox="0 0 200 260" fill="none" aria-hidden="true">
-        <path class="bp-path" d="M20 250 V60 L100 20 L180 60 V250 M20 250 H180 M20 100 H50 M20 150 H50 M20 200 H50 M150 100 H180 M150 150 H180 M150 200 H180 M60 250 V180 H140 V250" stroke="currentColor" stroke-width="1.2"/>
-      </svg>
+<section class="gallery" id="galeria">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> Interiores</div>
+    <div class="section-head reveal">
+      <h2>Hormigón visto, madera cálida, verde propio.</h2>
+      <p>Living-comedor integrado a la cocina, balcón aterrazado con vegetación y cielorrasos de hormigón a la vista en cada unidad.</p>
     </div>
-    <div class="section-inner">
-      <div class="sheet-head reveal">
-        <span class="sheet-no">A—02</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">Fideicomiso al costo</span>
-      </div>
-      <h2 class="section-title reveal">Entrega julio 2027</h2>
-      <p class="lede reveal">Edificio en construcción, con comienzo en septiembre de 2025.</p>
-
-      <div class="timeline reveal">
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div>
-            <h4>Septiembre 2025</h4>
-            <p>Comienzo de obra</p>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-dot"></span>
-          <div>
-            <h4>Julio 2027</h4>
-            <p>Entrega de unidades</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="payment-card reveal">
-        <h3>Modalidad de pago</h3>
-        <div class="payment-split">
-          <div class="payment-figure">
-            <span class="payment-num">40<i>%</i></span>
-            <span>Pago inicial del valor total de la unidad</span>
-          </div>
-          <div class="payment-figure">
-            <span class="payment-num">20</span>
-            <span>Cuotas consecutivas en USD por el saldo restante</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- UNIDADES -->
-  <section class="section" id="unidades">
-    <div class="section-inner">
-      <div class="sheet-head reveal">
-        <span class="sheet-no">A—03</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">Unidades</span>
-      </div>
-      <h2 class="section-title reveal">Últimas 4 unidades<br>disponibles</h2>
-      <p class="lede reveal">Unidades de 3 ambientes, disponibles en pisos 1 y 2. Consultar por cocheras.</p>
-
-      <div class="units">
-
-        <article class="unit-card reveal">
-          <span class="tick tick-tl"></span><span class="tick tick-br"></span>
-          <div class="unit-plan">
-            <img src="assets/images/plan-zarraga-iso.jpg" alt="Plano isométrico Unidad Zarraga">
-          </div>
-          <div class="unit-info">
-            <h3>Unidad Zarraga</h3>
-            <p class="unit-range">101 · 201</p>
-            <div class="unit-metrics">
-              <div><span>55&nbsp;m²</span>Cubiertos</div>
-              <div><span>10&nbsp;m²</span>Semicubiertos</div>
-              <div><span>65&nbsp;m²</span>Totales</div>
-            </div>
-            <table class="room-table">
-              <tbody>
-                <tr><td>Living - comedor</td><td>4,00 × 6,70&nbsp;m</td></tr>
-                <tr><td>Balcón</td><td>5,70 × 1,70&nbsp;m</td></tr>
-                <tr><td>Dormitorio 1</td><td>3,50 × 3,50&nbsp;m</td></tr>
-                <tr><td>Dormitorio 2</td><td>2,70 × 2,30&nbsp;m</td></tr>
-                <tr><td>Baño</td><td>1,80 × 2,00&nbsp;m</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-        <article class="unit-card reveal">
-          <span class="tick tick-tl"></span><span class="tick tick-br"></span>
-          <div class="unit-plan">
-            <img src="assets/images/plan-heredia-iso.jpg" alt="Plano isométrico Unidad Heredia">
-          </div>
-          <div class="unit-info">
-            <h3>Unidad Heredia</h3>
-            <p class="unit-range">102 · 202</p>
-            <div class="unit-metrics">
-              <div><span>57&nbsp;m²</span>Cubiertos</div>
-              <div><span>13&nbsp;m²</span>Semicubiertos</div>
-              <div><span>70&nbsp;m²</span>Totales</div>
-            </div>
-            <table class="room-table">
-              <tbody>
-                <tr><td>Living - comedor</td><td>3,20 × 8,70&nbsp;m</td></tr>
-                <tr><td>Balcón</td><td>8,30 × 1,40&nbsp;m</td></tr>
-                <tr><td>Dormitorio 1</td><td>4,36 × 2,90&nbsp;m</td></tr>
-                <tr><td>Dormitorio 2</td><td>2,90 × 2,25&nbsp;m</td></tr>
-                <tr><td>Baño</td><td>2,20 × 1,80&nbsp;m</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-
-      </div>
-
-      <figure class="floorplan-full reveal">
-        <span class="tick tick-tl"></span><span class="tick tick-br"></span>
-        <img src="assets/images/floorplan-full.png" alt="Planta completa del piso, unidades Zarraga y Heredia">
-        <figcaption>Planta tipo — pisos 1 y 2</figcaption>
+    <div class="gallery-grid reveal">
+      <figure class="tall">
+        <img src="assets/images/interior-terrace.jpg" alt="Living integrado a balcón terraza semicubierta" loading="lazy">
+        <figcaption>Living — balcón terraza</figcaption>
       </figure>
-    </div>
-  </section>
-
-  <!-- ESPECIFICACIONES -->
-  <section class="section section-tint" id="especificaciones">
-    <div class="section-inner">
-      <div class="sheet-head reveal">
-        <span class="sheet-no">A—04</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">Calidad constructiva</span>
-      </div>
-      <h2 class="section-title reveal">Especificaciones</h2>
-
-      <div class="specs-list">
-        <div class="spec reveal">
-          <span class="spec-num">01</span>
-          <h3>Carpinterías</h3>
-          <p>Ventanas de aluminio anodizado, perfilería Hydro HA62. Vidrio DVH 3+3 con lámina, cámara de 6&nbsp;mm y vidrio simple de 4&nbsp;mm.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">02</span>
-          <h3>Puertas interiores</h3>
-          <p>Puerta placa con filtro acústico, placas de 4&nbsp;mm en ambos lados aisladas con lana de vidrio. Terminación esmalte sintético blanco sin brillo. Bisagras Sidañez terminación cromo satinado.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">03</span>
-          <h3>Pisos</h3>
-          <p>Interiores: porcelanato Cerro Negro Gris Malba Grafito 60×120 en todos los ambientes. Exteriores: porcelanato texturado de la misma línea.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">04</span>
-          <h3>Confort</h3>
-          <p>Instalación prevista para Multi Split frío/calor en todos los ambientes. Calefacción por piso radiante. Agua caliente central por caldera con control individual.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">05</span>
-          <h3>Cocinas</h3>
-          <p>Muebles en melamina 18&nbsp;mm con cantos ABS, herrajes de primera calidad. Mesada de mármol Carrara o Tundra Grey. Bacha doble Mi Pileta, grifería FV. Anafe vitrocerámico 4 hornallas con horno y extractor.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">06</span>
-          <h3>Dormitorios</h3>
-          <p>Placares en dormitorios 1 y 2, frentes de doble hoja corrediza y tirador vertical de piso a techo. Terminación en melamina a definir según proyecto ejecutivo.</p>
-        </div>
-        <div class="spec reveal">
-          <span class="spec-num">07</span>
-          <h3>Baños</h3>
-          <p>Artefactos Roca línea Mónaco. Griferías FV, accesorios Grand Hotel. Pileta de apoyar Piazza. Mesada de mármol Carrara. Receptáculo de ducha en porcelanato elaborado in situ.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERIORES / GALERIA -->
-  <section class="section" id="interiores">
-    <div class="section-inner">
-      <div class="sheet-head reveal">
-        <span class="sheet-no">A—05</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">Interiores</span>
-      </div>
-      <h2 class="section-title reveal">Materialidad y luz</h2>
-      <p class="lede reveal">Ambientes fluidos, terrazas verdes y una fachada de hormigón visto que dialoga con el arbolado de la esquina.</p>
-      <p class="drag-hint reveal">Arrastrá para recorrer →</p>
-    </div>
-    <div class="gallery" id="gallery">
-      <div class="gallery-track" id="galleryTrack">
-        <figure class="gallery-item">
-          <img src="assets/images/interior-terrace.jpg" alt="Living integrado a terraza semicubierta" loading="lazy" draggable="false">
-          <figcaption>Living — terraza semicubierta</figcaption>
+      <div class="gallery-stack">
+        <figure>
+          <img src="assets/images/interior-living.jpg" alt="Living comedor con cocina integrada" loading="lazy">
+          <figcaption>Living — cocina integrada</figcaption>
         </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/interior-living.jpg" alt="Living comedor con cocina integrada" loading="lazy" draggable="false">
-          <figcaption>Living comedor — cocina integrada</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/facade-evening.jpg" alt="Fachada del edificio ZYH al atardecer" loading="lazy" draggable="false">
-          <figcaption>Fachada — H 1395</figcaption>
+        <figure>
+          <img src="assets/images/hero-building.jpg" alt="Fachada del edificio ZYH, esquina Heredia y Zarraga" loading="lazy">
+          <figcaption>Fachada — esquina Heredia y Zarraga</figcaption>
         </figure>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CONTACTO -->
-  <section class="section section-dark" id="contacto">
-    <div class="section-inner contact-inner">
-      <div class="sheet-head sheet-head-center reveal">
-        <span class="sheet-no">A—06</span>
-        <span class="sheet-rule"></span>
-        <span class="sheet-name">Contacto</span>
-      </div>
-      <h2 class="section-title reveal">Sumate al<br>fideicomiso ZYH</h2>
-      <p class="lede reveal">Últimas 4 unidades de 3 ambientes disponibles. Escaneá el código para recibir toda la información del proyecto.</p>
-      <div class="qr-block reveal">
-        <span class="tick tick-tl"></span><span class="tick tick-br"></span>
-        <img src="assets/images/qr-code.png" alt="Código QR con información del proyecto ZYH">
-        <span>Escaneá para más información</span>
+<figure class="obra-banner reveal">
+  <img src="assets/images/construction.jpg" alt="Obra de ZYH en construcción, estructura de hormigón armado" loading="lazy">
+  <figcaption>Obra en construcción — cimientos, septiembre 2025</figcaption>
+</figure>
+
+<section class="units" id="unidades">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> Últimas 4 unidades disponibles — 3 ambientes</div>
+    <div class="section-head reveal">
+      <h2>Dos plantas, dos calles, una esquina.</h2>
+      <p>Cada piso del edificio tiene dos unidades — una mira a Zarraga, la otra a Heredia — disponibles en planta baja y primer piso.</p>
+    </div>
+
+    <div class="unit-toggle-wrap reveal">
+      <button class="unit-tab active" data-unit="zarraga" aria-pressed="true">Unidad Zárraga</button>
+      <button class="unit-tab" data-unit="heredia" aria-pressed="false">Unidad Heredia</button>
+    </div>
+
+    <div class="unit-card active reveal" id="unit-zarraga">
+      <div class="unit-plan"><img src="assets/images/plan-zarraga-iso.jpg" alt="Plano isométrico Unidad Zárraga"></div>
+      <div>
+        <h3 class="unit-name serif">Unidad Zárraga</h3>
+        <div class="unit-meta">Unidades 101 · 201 — disponible en PB y 1º piso</div>
+        <table class="unit-dims">
+          <tr><td>Living-comedor</td><td>4,00 × 6,70&nbsp;m</td></tr>
+          <tr><td>Balcón</td><td>5,70 × 1,70&nbsp;m</td></tr>
+          <tr><td>Dormitorio 1</td><td>3,50 × 3,50&nbsp;m</td></tr>
+          <tr><td>Dormitorio 2</td><td>2,70 × 2,30&nbsp;m</td></tr>
+          <tr><td>Baño</td><td>1,80 × 2,00&nbsp;m</td></tr>
+        </table>
+        <div class="unit-totals">
+          <div><b>55&nbsp;m²</b><span>Cubiertos</span></div>
+          <div><b>10&nbsp;m²</b><span>Semicubiertos</span></div>
+          <div><b>65&nbsp;m²</b><span>Total</span></div>
+        </div>
+        <p class="unit-note">Consultar por cocheras.</p>
       </div>
     </div>
 
-    <div class="seal" aria-hidden="true">
-      <svg viewBox="0 0 160 160" class="seal-svg">
-        <defs>
-          <path id="sealPath" d="M 80,80 m -62,0 a 62,62 0 1,1 124,0 a 62,62 0 1,1 -124,0"/>
-        </defs>
-        <text font-size="10.6" letter-spacing="2.5" fill="currentColor">
-          <textPath href="#sealPath" startOffset="0%">AFRa — ARQUITECTOS — ZYH — FIDEICOMISO AL COSTO — </textPath>
-        </text>
-      </svg>
-      <img src="assets/images/logo-afra.png" alt="AFRa Arquitectos" class="seal-logo">
+    <div class="unit-card" id="unit-heredia">
+      <div class="unit-plan"><img src="assets/images/plan-heredia-iso.jpg" alt="Plano isométrico Unidad Heredia"></div>
+      <div>
+        <h3 class="unit-name serif">Unidad Heredia</h3>
+        <div class="unit-meta">Unidades 102 · 202 — disponible en PB y 1º piso</div>
+        <table class="unit-dims">
+          <tr><td>Dormitorio 1</td><td>4,36 × 2,90&nbsp;m</td></tr>
+          <tr><td>Dormitorio 2</td><td>2,90 × 2,25&nbsp;m</td></tr>
+          <tr><td>Balcón</td><td>8,30 × 1,40&nbsp;m</td></tr>
+          <tr><td>Living-comedor</td><td>3,20 × 8,70&nbsp;m</td></tr>
+          <tr><td>Baño</td><td>2,20 × 1,80&nbsp;m</td></tr>
+        </table>
+        <div class="unit-totals">
+          <div><b>57&nbsp;m²</b><span>Cubiertos</span></div>
+          <div><b>13&nbsp;m²</b><span>Semicubiertos</span></div>
+          <div><b>70&nbsp;m²</b><span>Total</span></div>
+        </div>
+        <p class="unit-note">Consultar por cocheras.</p>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="specs" id="especificaciones">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> Especificaciones técnicas</div>
+    <div class="section-head reveal">
+      <h2>Terminaciones de primera calidad, sin sorpresas.</h2>
+      <p>Cada rubro definido desde el proyecto ejecutivo, con marcas y medidas específicas.</p>
+    </div>
+    <div class="spec-grid reveal">
+      <div class="spec-item">
+        <h4>Carpinterías</h4>
+        <p>Ventanas de aluminio anodizado, perfilería Hydro HA62, vidrio DVH 3+3 con lámina, cámara de 6&nbsp;mm y vidrio simple de 4&nbsp;mm.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Puertas interiores</h4>
+        <p>Puerta placa con filtro acústico, 4&nbsp;mm en ambos lados aisladas con lana de vidrio, terminación esmalte sintético blanco sin brillo. Bisagras Sidañez cromo satinado.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Pisos</h4>
+        <p>Interiores: porcelanato Cerro Negro gris malba grafito 60×120 en todos los ambientes. Exteriores: porcelanato texturado, mismo formato.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Confort</h4>
+        <p>Instalación prevista para Multi Split frío-calor en todos los ambientes. Calefacción por piso radiante con control individual. Agua caliente central por caldera de edificio.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Cocinas</h4>
+        <p>Muebles de melamina 18&nbsp;mm con herrajes de embutir y sistema autostop. Mesada de mármol de carrara o Tundra Grey. Bacha doble Mi Pileta, grifería FV, anafe vitrocerámico 4 hornallas con horno visor y extractor.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Dormitorios</h4>
+        <p>Placares incluidos en ambos dormitorios: frentes de doble hoja corrediza, tirador vertical de piso a techo, terminación en melamina a definir.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Baños</h4>
+        <p>Artefactos Roca línea Mónaco. Grifería FV, accesorios Grand Hotel. Pileta de apoyar Piazza. Mesada de mármol de carrara. Receptáculo de ducha de porcelanato elaborado in situ.</p>
+      </div>
+      <div class="spec-item">
+        <h4>Obra</h4>
+        <p>Inicio de obra septiembre 2025. Estructura de hormigón visto. Entrega prevista julio 2027.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="financing" id="financiacion">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> Fideicomiso al costo</div>
+    <div class="section-head reveal">
+      <h2>Un plan de pago simple, en dólares.</h2>
+      <p>Sin intermediarios financieros: comprás directamente en el fideicomiso, al costo de obra.</p>
+    </div>
+    <div class="fin-grid">
+      <div class="payment-card reveal">
+        <h3 class="serif">Modalidad de pago</h3>
+        <div class="payment-row"><span>Pago inicial</span><b>40%</b></div>
+        <div class="payment-row"><span>Saldo restante</span><b>20 cuotas</b></div>
+        <div class="payment-row"><span>Moneda</span><b>USD</b></div>
+        <p class="payment-note">Pago inicial equivalente al 40% del valor total de la unidad. Saldo restante en 20 cuotas mensuales y consecutivas, en dólares estadounidenses.</p>
+      </div>
+      <div class="timeline reveal">
+        <div class="tl-item done">
+          <div class="date">Septiembre 2025</div>
+          <h4>Comienzo de obra</h4>
+        </div>
+        <div class="tl-item">
+          <div class="date">2025 — 2027</div>
+          <h4>Construcción en curso</h4>
+        </div>
+        <div class="tl-item">
+          <div class="date">Julio 2027</div>
+          <h4>Entrega de unidades</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="studio">
+  <div class="wrap studio-inner">
+    <div class="studio-mark">AFRa Arquitectos</div>
+    <div class="studio-stats">
+      <div><b>30</b><span>Años en el rubro</span></div>
+      <div><b>56</b><span>Edificios construidos</span></div>
+      <div><b>30.000</b><span>M² construidos</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <div class="eyebrow"><span class="angle"></span> Últimas 4 unidades disponibles</div>
+    <h2 class="serif">Reservá tu unidad en la esquina de Heredia y Zarraga.</h2>
+    <p class="lead">Coordiná una visita a obra o pedí el dossier completo del fideicomiso, planos y disponibilidad actualizada.</p>
+    <div class="contact-actions">
+      <a class="btn btn-primary" href="https://wa.me/5491131308007" target="_blank" rel="noopener">WhatsApp</a>
+      <a class="btn btn-ghost" href="https://www.estudioafra.com/" target="_blank" rel="noopener">Nuestro estudio</a>
+    </div>
+    <div class="contact-grid">
+      <div><span>Dirección de obra</span><b>Heredia 1395 esq. Zarraga, CABA</b></div>
+      <div><span>Contacto comercial</span><b>+54&nbsp;9&nbsp;11&nbsp;3130-8007</b></div>
+      <div><span>Desarrolla</span><b>AFRa Arquitectos</b></div>
+    </div>
+  </div>
+</section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <span>ZYH — Zarraga y Heredia</span>
-    <span class="footer-mono">AFRa Arquitectos · Fideicomiso al costo</span>
-  </div>
-</footer>
+<footer>ZYH — Fideicomiso al costo · AFRa Arquitectos · Heredia 1395 esquina Zarraga, CABA</footer>
 
-<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
-<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
