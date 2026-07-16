@@ -355,6 +355,24 @@ herramienta externa (ChatGPT u otra) y la pegue de vuelta en el chat
 hay que buscarla ahí por fecha de modificación reciente (`find
 ~/Downloads -type f -mmin -15`) ya que no llega como path explícito.
 
+### V7 — el nav no tenía shortcut a Contacto
+El usuario notó que el nav no tenía forma de llegar directo a
+`#contacto` (donde está el botón de WhatsApp, el objetivo real de
+conversión del sitio). Al heredar la estructura de la referencia
+original, el botón más destacado del header (`.nav-cta`, el pill
+oscuro) apuntaba a `https://www.estudioafra.com/` (sitio externo del
+estudio) en vez de a la sección de contacto — un hueco real de UX,
+no cosmético: la landing existe para generar contacto y el botón con
+más jerarquía visual llevaba a otro lado.
+
+Fix: `.nav-cta` ahora apunta a `#contacto` con el texto "Contacto".
+"Nuestro estudio" (el link externo) se movió a la lista de
+`nav.links`/`.links-mobile` como un ítem más, ya no como el CTA
+principal. En mobile se agregó un séptimo ítem (`Contacto`, con
+clase `.mobile-cta`, estilo mono/acento para diferenciarlo del resto)
+y se subió `max-height` del panel desplegable de 360px a 440px para
+que no quede cortado con el ítem nuevo.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar

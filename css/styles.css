@@ -109,10 +109,15 @@ nav.links a:hover::after{transform:scaleX(1);}
   border-top:0 solid var(--line);
   transition:max-height 0.35s ease;
 }
-.links-mobile.open{ max-height:360px; border-top-width:1px; }
+.links-mobile.open{ max-height:440px; border-top-width:1px; }
 .links-mobile a{
   padding:16px 20px; text-decoration:none; color:var(--ink);
   border-bottom:1px solid var(--line); font-size:15px;
+}
+.links-mobile a.mobile-cta{
+  color:var(--wood-deep); font-family:'IBM Plex Mono', monospace;
+  font-size:13px; letter-spacing:0.06em; text-transform:uppercase;
+  border-bottom:none;
 }
 @media (min-width:821px){ .links-mobile{display:none;} }
 
