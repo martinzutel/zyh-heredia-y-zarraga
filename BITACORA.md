@@ -186,11 +186,85 @@ dar por cerrado el trabajo:
   fondo oscuro y para el botón `.btn-primary` (fondo madera + texto
   `--ink`, ese par ya daba 4.7:1 sin cambios).
 
+### V4 — foto de obra mejorada + pasada completa de mobile
+Pedido del usuario: mejorar la foto de los obreros con cascos
+(`construction.jpg`, la del banner "Obra en construcción"), y dejar
+todo el sitio "exquisito y fluido" en mobile — tamaños y
+distribuciones balanceadas, intuitivas, simples, sin clutter.
+
+**Mejora de imagen** — no hay Homebrew ni acceso a un servicio externo
+de super-resolución, así que se instaló `opencv-python-headless` +
+`numpy` por pip y se armó un pipeline con OpenCV a partir del PNG
+fuente sin comprimir (`extraction/images/p03_x40_900x1277.png`, no de
+la copia JPEG ya comprimida):
+1. `bilateralFilter` para bajar el ruido de la compresión JPEG
+   original sin perder bordes.
+2. CLAHE (`clipLimit=2.2`, tiles 8×8) sobre el canal L en LAB — sube
+   el contraste local y saca el aspecto "lavado"/con neblina sin
+   quemar las luces altas.
+3. Boost de saturación (+16%) y de brillo (+3%) en HSV.
+4. Upscale 1.6× con Lanczos (900×1277 → 1440×2043) + unsharp mask
+   para compensar el softening del escalado.
+5. Ajuste final de niveles (contraste +4%, +3 de brillo).
+
+Resultado: mucho más definición (se ve la textura de la madera y el
+hierro), colores más vivos, sigue siendo la foto real del folleto (no
+se generó ni se inventó contenido, solo se realzó lo que ya estaba).
+Se reemplazó `assets/images/construction.jpg` (656&nbsp;KB, JPEG
+progresivo calidad 84). También se ajustó `object-position:50% 38%`
+en `.obra-banner img` para que el recorte del banner ancho quede
+centrado en los obreros y no en el pozo vacío de arriba.
+
+**Pasada de mobile** — se auditó `css/styles.css` completo buscando
+tanto bugs reales como oportunidades de pulido:
+- **Bug real**: `.hero-content` tenía `padding:… 32px 72px` (shorthand)
+  que pisaba el padding fluido de `.wrap` en el mismo elemento — el
+  hero quedaba con más aire lateral que el resto de las secciones en
+  mobile. Se separó en `padding-top`/`padding-bottom` longhand para
+  que el padding horizontal lo controle únicamente `.wrap`.
+- **Bug real**: `.unit-toggle-wrap` (los botones "Unidad Zárraga" /
+  "Unidad Heredia") no tenía `flex-wrap` ni ancho controlado — en
+  pantallas angostas (~320–360px) el texto de los dos botones podía
+  no entrar. Se pasó a `flex:1 1 0` con texto centrado: ahora son un
+  control segmentado de ancho igual que siempre entra exacto,
+  cualquiera sea el ancho de pantalla.
+- **Bug real**: `figcaption` (los labels sobre las fotos de la
+  galería) no tenía `max-width`, así que en el layout de 2 columnas
+  de `.gallery-stack` en mobile (`≤520px`) el texto largo se salía del
+  cuadro y quedaba cortado por el `overflow:hidden` del `figure`
+  padre. Se agregó `max-width:calc(100% - 40px)` (y una versión más
+  chica para el layout de 2 columnas) para que el texto haga wrap en
+  vez de cortarse.
+- **Fluidez real** (pedido explícito de "fluido"): se reemplazaron
+  varios saltos bruscos por breakpoint (`.wrap` 32px→20px a los
+  640px, `section` 120px→80px a los 820px) por `clamp()` con `vw`, que
+  interpola suavemente en todo el rango en vez de saltar de golpe en
+  un punto fijo. Se extendió el mismo criterio a paddings de
+  `.payment-card`, `.spec-item`, `.studio`, gaps de `.hero-stats` /
+  `.unit-totals` / `.studio-stats`, y tamaños de fuente de
+  `.hero-eyebrow`, `.hero-address`, `.hero-stat b`, `.section-head p`,
+  `.contact h2`/`p.lead`.
+- **Balance/simplicidad**: se redujo la altura de `.obra-banner` en
+  mobile (46vh→34vh) y de `.gallery figure.tall` en pantallas chicas
+  (640px→300px) para que la galería no se sienta pesada de scrollear;
+  se agrandó el hit-target del botón de menú mobile de 34px a 44px
+  (mínimo recomendado para touch); se ocultó el subtítulo del logo
+  ("Fideicomiso al costo" en el nav) por debajo de 380px para aliviar
+  la barra superior; los dos botones de `.contact-actions` (WhatsApp /
+  Nuestro estudio) pasan a apilarse a ancho completo por debajo de
+  480px en vez de quedar centrados en dos líneas.
+- Se volvió a correr el chequeo automático de: balance de llaves CSS,
+  que cada clase usada en el HTML tenga regla, y que ninguna variable
+  CSS quede sin usar — todo limpio.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
   `poppler`. Usar `pip3 install pymupdf` para cualquier trabajo futuro
-  con PDFs.
+  con PDFs. Para mejora/edición de imágenes, `pip3 install numpy
+  opencv-python-headless` funciona bien (usado para el enhance de
+  `construction.jpg` — CLAHE, denoise, upscale Lanczos, unsharp mask).
+  `Pillow` (PIL) ya estaba disponible de entrada.
 - **La tool de preview (`mcp__Claude_Preview__preview_start`) no
   funciona en este entorno**: el subproceso que lanza falla con
   `PermissionError: cannot access parent directories` al intentar
@@ -228,10 +302,11 @@ python3 -m http.server 4173
 
 ## Estado actual (2026-07-16)
 
-- Sitio completo, una página, diseño **V3** (ver arriba): hero,
-  `#lote`, `#galeria`, banner de obra, `#unidades` (con tabs JS),
-  `#especificaciones`, `#financiacion`, strip de AFRa, `#contacto`
-  (con WhatsApp/teléfono/estudio reales), footer.
+- Sitio completo, una página, diseño **V4** (V3 + foto de obra
+  mejorada + pasada de mobile, ver arriba): hero, `#lote`, `#galeria`,
+  banner de obra (con foto real mejorada con OpenCV), `#unidades` (con
+  tabs JS), `#especificaciones`, `#financiacion`, strip de AFRa,
+  `#contacto` (con WhatsApp/teléfono/estudio reales), footer.
 - Todo el contenido del folleto migrado (texto + imágenes + planos);
   `logo-afra.png`, `qr-code.png` y `floorplan-full.png` quedan en
   `assets/images/` sin usar en el HTML actual (no se borraron, no
@@ -243,12 +318,22 @@ python3 -m http.server 4173
   animación de scroll compleja ni cursor custom — pedido explícito
   del usuario.
 - Contraste verificado dos veces a mano (V2 y V3, ver arriba).
+- CSS mobile con paddings/gaps/tamaños de fuente fluidos vía
+  `clamp(px, vw, px)` en vez de saltos duros por breakpoint donde
+  tenía sentido; grids siguen usando breakpoints fijos donde
+  corresponde (cambios de `grid-template-columns`, que no se pueden
+  interpolar).
 - Commits en `main`, todos con autoría correcta (`martinzutel`),
   ninguno con trailer de Claude.
 - Pendiente / no verificado en esta sesión: revisión visual real en
-  navegador (screenshots) por las limitaciones de entorno arriba
-  descritas. El usuario tiene el sitio abierto en su navegador para
-  revisar a ojo.
+  navegador, en particular en viewports mobile reales (screenshots)
+  por las limitaciones de entorno arriba descritas — el trabajo de
+  V4 se verificó por auditoría de código (cálculos de ancho/overflow
+  a mano para los puntos de riesgo: tabs de unidades, captions de
+  galería, hero-eyebrow) más `curl` para los assets. El usuario tiene
+  el sitio abierto en su navegador para revisar a ojo, incluyendo con
+  las devtools en modo mobile si quiere confirmar antes de dar por
+  cerrado el pedido.
 
 ## Próximos pasos posibles (no pedidos aún, para referencia)
 
