@@ -610,6 +610,54 @@ así entra completa dentro de esa caja de 640px sin recortarse
 la altura de la caja en sí es fija y predecible, no depende de que el
 navegador infiera nada.
 
+### V14 — preview de WhatsApp/redes (Open Graph)
+El usuario mandó una captura del link compartido por WhatsApp: se
+veía el favicon (el ícono chico de la pestaña) agrandado como imagen
+de preview, sin descripción, y pidió una imagen y un texto más
+descriptivos, más la URL.
+
+**Causa raíz**: el sitio no tenía ninguna meta tag Open Graph
+(`og:title`, `og:description`, `og:image`, etc.) ni Twitter Card. Sin
+`og:image`, WhatsApp/Facebook/Twitter caen de vuelta al favicon como
+imagen — por eso se veía el ícono de marca ("L" en madera) gigante y
+sin contexto.
+
+**Imagen de preview**: se generó una tarjeta social propia
+(`assets/og/og-image.jpg`, 1200×630, el tamaño estándar de
+Open&nbsp;Graph) con PIL a partir de `facade-evening.jpg`: scrim
+oscuro degradado + viñeta izquierda para legibilidad, wordmark "ZYH"
+grande (fuente Didot, ya instalada en macOS — no hizo falta descargar
+nada), subtítulo con la dirección, línea inferior con unidades
+disponibles y fecha de entrega. Primera pasada quedó con la eyebrow
+superior poco legible sobre una ventana iluminada del render; se
+corrigió subiendo el oscurecido general de la imagen antes de
+confirmar el resultado final.
+
+**Meta tags agregadas**: `og:type`, `og:url`, `og:site_name`,
+`og:title`, `og:description`, `og:image` (+ width/height/alt),
+`og:locale`, y el set equivalente `twitter:card` /
+`twitter:title` / `twitter:description` / `twitter:image`. El
+`og:image` usa URL absoluta (`https://zyh-heredia-y-zarraga.vercel.app/...`)
+porque los crawlers de WhatsApp/Facebook no resuelven rutas
+relativas.
+
+**URL**: se le preguntó al usuario si quería seguir con el subdominio
+gratuito de Vercel o comprar un dominio propio (compra que tiene que
+hacer él, no algo que se pueda hacer en su nombre) — eligió seguir
+con `zyh-heredia-y-zarraga.vercel.app` por ahora. **Si en el futuro
+pide de nuevo mejorar la URL, la respuesta ya está resuelta: quiere
+seguir con Vercel, no ir a buscarle dominio propio salvo que lo pida
+explícitamente de nuevo.**
+
+**Nota para el futuro**: WhatsApp (y la mayoría de estos sitios)
+cachean el preview de un link la primera vez que se comparte, y no
+siempre lo vuelven a pedir aunque el `og:image` cambie. Si el usuario
+prueba compartir el link después de este cambio y sigue viendo el
+preview viejo, no es que el fix no funcionó — hay que decirle que
+prueba con un link "roto" a propósito (agregando `?v=2` al final de
+la URL) o que use el debugger de Facebook
+(developers.facebook.com/tools/debug/) para forzar el recacheo.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
