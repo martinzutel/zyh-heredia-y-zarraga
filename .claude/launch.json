@@ -4,8 +4,9 @@
     {
       "name": "static-site",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "cd /Users/martinzutel/Desktop/afra-zyh && exec python3 -m http.server 4173"],
-      "port": 4173
+      "runtimeArgs": ["-c", "cd /Users/martinzutel/Desktop/afra-zyh && exec python3 -m http.server ${PORT:-4173}"],
+      "port": 4173,
+      "autoPort": true
     }
   ]
 }
