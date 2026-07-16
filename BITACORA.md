@@ -98,7 +98,7 @@ un layout distinto al de proyectos típicos de Claude.
 - **Galería** como carrusel de arrastre (drag-scroll con Pointer
   Events) en vez de grid estático.
 
-### Contraste — verificado a mano (WCAG)
+### Contraste V2 — verificado a mano (WCAG)
 El usuario pidió expresamente buen contraste/legibilidad. Se calculó
 luminancia relativa y ratio de contraste a mano para las combinaciones
 de texto sobre fondo, y se corrigieron dos que fallaban AA (4.5:1):
@@ -110,6 +110,81 @@ de texto sobre fondo, y se corrigieron dos que fallaban AA (4.5:1):
   (~4.6:1) → aclarado a `#9995a8` (~5.4:1) para dar margen.
 - `--accent-light` (naranja sobre navy, usado para labels/números en
   secciones oscuras) ya pasaba (~4.9:1), no se tocó.
+
+### V3 (actual) — reescritura completa a partir de una referencia del usuario
+El usuario bajó un HTML de referencia (`~/Downloads/zyh-heredia-zarraga.html`,
+1.5&nbsp;MB con imágenes embebidas en base64) y pidió: "basate en esto,
+hacé algo muy parecido, dejalo mega pulido, revisá el código para sacar
+cualquier bloat inútil, y sacá el mouse animado (el cursor custom de la
+V2)". Se interpretó como: adoptar el sistema de diseño y la estructura
+de esa referencia casi 1:1, pero servido con los assets reales ya
+extraídos del PDF (no los base64 del archivo de referencia) y con el
+código auditado a fondo.
+
+- **Paleta nueva**: `--ink:#22242C` / `--concrete:#EDEAE3` /
+  `--concrete-2:#E1DDD3` / `--slate:#4A4D59` / `--wood:#B08659`. Se
+  abandona la paleta navy/terracota de la V2 por esta, tomada
+  literalmente de la referencia.
+- **Tipografía nueva**: `Fraunces` (display) + `Inter` (texto) +
+  `IBM Plex Mono` (anotaciones). Reemplaza a Space Grotesk/Space Mono
+  de la V2 — combinación más editorial/profesional, menos "creada por
+  IA".
+- **Se eliminó por completo** (pedido explícito del usuario, y por
+  auditoría propia de código muerto/bloat): GSAP, ScrollTrigger, Lenis
+  (los tres CDN de unpkg), el cursor personalizado (dot + ring que
+  seguía el mouse), los botones magnéticos, las marcas de registro
+  fijas en las esquinas del viewport, el overlay de grano/ruido, el
+  blueprint SVG que se dibujaba con scroll, el sello circular
+  giratorio, la marquesina de texto infinito y la galería de
+  drag-scroll con Pointer Events. El JS quedó en ~35 líneas: reveal
+  on-scroll con `IntersectionObserver`, un toggle de tabs para
+  alternar entre Unidad Zárraga/Heredia, y un menú mobile simple.
+  Motivo: la referencia del usuario logra el mismo nivel de pulido
+  sin nada de eso — esas piezas eran ornamento, no valor real.
+- **Estructura de secciones** (siguiendo la referencia casi 1:1, ids en
+  español para los anchors): hero (imagen a sangre + scrim + stats) →
+  `#lote` (fondo oscuro, 4 razones numeradas + 2 mapas) → `#galeria`
+  (grid asimétrico 1 foto alta + 2 apiladas) → banner de obra en
+  construcción (agregado propio, no está en la referencia — se
+  reincorporó `construction.jpg`, que sí es una foto real del folleto
+  y no tenía lugar en la estructura de la referencia) → `#unidades`
+  (tabs Zárraga/Heredia con plano isométrico + tabla de dimensiones) →
+  `#especificaciones` (fondo oscuro, grid 2 columnas, se sumó un
+  octavo ítem "Obra" con fechas de inicio/entrega) → `#financiacion`
+  (payment-card + timeline vertical) → strip de stats de AFRa →
+  `#contacto` (WhatsApp + datos reales) → footer.
+- **Contacto real**: la referencia del usuario trae datos reales de
+  contacto (antes no los teníamos y no se iban a inventar) —
+  WhatsApp `https://wa.me/5491131308007`, teléfono
+  `+54 9 11 3130-8007`, y el sitio del estudio
+  `https://www.estudioafra.com/`. Se usaron tal cual los trajo el
+  usuario. Se sacó el bloque de QR de la V2 (ya no hace falta, el
+  WhatsApp cumple mejor esa función).
+- **Menú mobile**: la referencia del usuario esconde `nav.links` por
+  debajo de 820px sin ningún reemplazo (los links quedan
+  inaccesibles en mobile). Se consideró un gap real de usabilidad y
+  se agregó un toggle hamburguesa + panel desplegable simple (CSS
+  `max-height` + JS mínimo) — no estaba en la referencia pero es
+  necesario para "mega pulido" en un sitio que se promete responsive.
+
+### Contraste V3 — segunda pasada de verificación
+Se repitió el cálculo de contraste (script Python con la fórmula de
+luminancia relativa de WCAG) sobre la paleta nueva completa antes de
+dar por cerrado el trabajo:
+- Todos los pares texto/fondo principales (`--slate` sobre
+  `--concrete`/`--white`, `--ink` sobre `--concrete`, blancos con
+  opacidad sobre `--ink`) pasaban entre 6.5:1 y 12.9:1 sin tocar nada.
+- `--wood` como texto/gráfico sobre fondo **oscuro** (`.reason .num`,
+  `.spec-item h4`) pasa ~4.7:1, se dejó igual.
+- `--wood` como texto/gráfico sobre fondo **claro** (`.unit-meta`, el
+  ícono `.eyebrow .angle` en secciones claras, el subrayado de
+  `nav.links a:hover`, el punto de `.tl-item` en el timeline) daba
+  2.4–2.7:1 — **fallaba**, heredado tal cual de la referencia del
+  usuario. Se agregó un token nuevo `--wood-deep:#835529` (mismo tono,
+  más oscuro) usado solo en esos casos puntuales sobre fondo claro;
+  queda en 4.7–5.3:1. `--wood` original se conserva intacto para
+  fondo oscuro y para el botón `.btn-primary` (fondo madera + texto
+  `--ink`, ese par ya daba 4.7:1 sin cambios).
 
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
@@ -153,13 +228,22 @@ python3 -m http.server 4173
 
 ## Estado actual (2026-07-16)
 
-- Sitio completo, una página, 6 secciones: Hero, Ubicación (A-01),
-  Fideicomiso/Proyecto (A-02), Unidades (A-03), Especificaciones
-  (A-04), Interiores/Galería (A-05), Contacto (A-06).
-- Todo el contenido del folleto migrado (texto + imágenes + planos).
-- Diseño V2 (identidad "hoja de obra") implementado y con contraste
-  corregido.
-- 9 commits en `main`, todos con autoría correcta (`martinzutel`),
+- Sitio completo, una página, diseño **V3** (ver arriba): hero,
+  `#lote`, `#galeria`, banner de obra, `#unidades` (con tabs JS),
+  `#especificaciones`, `#financiacion`, strip de AFRa, `#contacto`
+  (con WhatsApp/teléfono/estudio reales), footer.
+- Todo el contenido del folleto migrado (texto + imágenes + planos);
+  `logo-afra.png`, `qr-code.png` y `floorplan-full.png` quedan en
+  `assets/images/` sin usar en el HTML actual (no se borraron, no
+  suman peso a la página si no están referenciados — puede servir
+  retomarlos si se agrega una sección de planta completa o un sello
+  de marca más adelante).
+- JS deliberadamente mínimo (~35 líneas, sin dependencias externas):
+  reveal on-scroll, tabs de unidades, menú mobile. Nada de
+  animación de scroll compleja ni cursor custom — pedido explícito
+  del usuario.
+- Contraste verificado dos veces a mano (V2 y V3, ver arriba).
+- Commits en `main`, todos con autoría correcta (`martinzutel`),
   ninguno con trailer de Claude.
 - Pendiente / no verificado en esta sesión: revisión visual real en
   navegador (screenshots) por las limitaciones de entorno arriba
@@ -168,11 +252,12 @@ python3 -m http.server 4173
 
 ## Próximos pasos posibles (no pedidos aún, para referencia)
 
-- Si el usuario pide contacto real (WhatsApp/mail/teléfono), preguntar
-  el dato — no inventarlo.
 - Si se agregan más unidades/plantas al PDF en el futuro, repetir el
   proceso de extracción documentado arriba antes de tocar el HTML a
   mano.
 - Considerar comprimir/`.webp` las imágenes de `assets/images/` si el
   peso de página se vuelve un problema (hoy son JPG calidad 88, no
   optimizados a WebP).
+- Si se pide retomar `floorplan-full.png` (planta 2D completa) o el
+  logo/QR de AFRa, ya están extraídos en `assets/images/` — no hace
+  falta volver al PDF.
