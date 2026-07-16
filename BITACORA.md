@@ -320,6 +320,41 @@ Deploy: commit `dfd5ec1`, pusheado y verificado en producción
 (`https://zyh-heredia-y-zarraga.vercel.app/css/styles.css` ya sirve
 `object-position:50% 50%`).
 
+### V6 — remaster de la foto de obra con ChatGPT (fuera del entorno)
+El usuario pidió una remasterización HD real de `construction.jpg`
+("ese es el problema"). Se evaluó usar `cv2.dnn_superres` (FSRCNN)
+para super-resolución con IA local, pero requería descargar un
+modelo pre-entrenado (~41&nbsp;KB, `FSRCNN_x4.pb` desde el repo oficial
+de OpenCV en GitHub) — se pidió permiso explícito al usuario (regla de
+"descargar archivos" del harness) y **lo rechazó**, prefiriendo no
+descargar nada nuevo.
+
+En cambio, el usuario mismo le pasó la imagen fuente sin comprimir
+(`extraction/images/p03_x40_900x1277.png`, la copia más limpia
+posible, sin el CLAHE/sharpen ya aplicado en V4/V5 que podría
+confundir a un upscaler) a ChatGPT para que la remasterizara, y pegó
+el resultado en el chat. El archivo llegó a `~/Downloads/9460c6f4-bd1d-4efb-8351-6d0a7964c4a6.png`
+(1054×1493, subida automática del harness al pegar una imagen en el
+chat — el nombre es un UUID, no algo que el usuario haya escrito).
+
+Sobre esa base ya remasterizada se aplicó un procesamiento liviano
+propio (mucho más sutil que en V4, porque la base ya viene nítida):
+upscale 1.35× Lanczos (1054×1493 → 1422×2015), unsharp mask suave, y
+un CLAHE muy leve (`clipLimit=1.3` vs. 2.2 de V4) solo para afinar
+micro-contraste. Se volvió a verificar el encuadre a los mismos
+aspect ratios extremos que en V5 (desktop ancho / mobile vertical)
+antes de reemplazar el archivo — sigue funcionando bien con
+`object-position:50% 50%`, no hizo falta tocar el CSS.
+
+**Para la próxima vez que haga falta remasterizar algo**: si el
+usuario no quiere que se descarguen modelos/herramientas nuevas, la
+alternativa que funciona bien es pedirle la imagen fuente sin
+comprimir (no la ya procesada) y que él mismo la pase por una
+herramienta externa (ChatGPT u otra) y la pegue de vuelta en el chat
+— el harness la guarda automáticamente en `~/Downloads/<uuid>.png`,
+hay que buscarla ahí por fecha de modificación reciente (`find
+~/Downloads -type f -mmin -15`) ya que no llega como path explícito.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
