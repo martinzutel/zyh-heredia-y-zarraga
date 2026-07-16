@@ -188,12 +188,20 @@ section{padding:clamp(64px, 10vw, 120px) 0;}
 
 /* ---------- gallery / interiors ---------- */
 .gallery{background:var(--concrete);}
-.gallery-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px; align-items:start;}
+.gallery-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px;}
 @media (max-width:900px){ .gallery-grid{grid-template-columns:1fr;} }
 .gallery figure{position:relative; overflow:hidden; border-radius:2px; margin:0;}
 .gallery figure img{width:100%; height:100%; object-fit:cover; display:block;}
-/* facade photo keeps its real 3:4 ratio so it's never cropped */
-.gallery figure.tall{aspect-ratio:829 / 1172;}
+/* facade is a portrait photo: stretches to match the stack column's
+   height (instead of forcing its own tall 3:4 box) and uses
+   object-fit:contain so the whole building still shows, never cropped */
+.gallery figure.tall{
+  background:var(--concrete-2);
+  display:flex; align-items:center; justify-content:center;
+  aspect-ratio:829 / 1172;
+}
+.gallery figure.tall img{object-fit:contain;}
+@media (min-width:900px){ .gallery figure.tall{aspect-ratio:auto;} }
 .gallery-stack{display:grid; gap:24px;}
 .gallery-stack figure{aspect-ratio:16 / 10;}
 @media (max-width:520px){

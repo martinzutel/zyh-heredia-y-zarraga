@@ -539,6 +539,51 @@ diciembre 2027") no afirma ninguna fecha de la foto en sí, solo
 reusa hechos ya confirmados (hormigón visto, entrega diciembre 2027).
 Si el usuario da la fecha real de la foto, agregarla.
 
+### V12 — texto menos "chamuyero", foto de fachada pareja, unidades 1A/1B
+El usuario adjuntó de nuevo `IMG_3812.HEIC` — se verificó por hash
+(`md5`) que es exactamente el mismo archivo que ya se usó en V11
+(mismo tamaño, misma fecha de modificación), así que no había nada
+que reemplazar en la imagen; el pedido real era sobre el texto y el
+layout alrededor de ella.
+
+1. **Texto menos "chamuyero"**: se cambió el copy de la sección
+   "Obra" de "El hormigón visto ya toma forma. La estructura avanza
+   piso a piso, camino a la entrega de diciembre 2027." (metafórico,
+   tono de venta) a "La obra, hoy. Estructura de hormigón visto en
+   construcción. Entrega prevista: diciembre 2027." (plano, solo
+   hechos ya confirmados, sin adorno).
+
+2. **Fachada "no tan alta" y pareja con la otra columna**: en V11 se
+   le había dado a `.gallery figure.tall` `aspect-ratio:829/1172`
+   (la proporción real de la foto) para que no se recortara, pero
+   eso la hacía muy alta (~950px en desktop) comparada con la columna
+   de fotos apiladas al lado — quedaba despareja. Solución: a
+   partir de 900px de ancho, la figura pasa a `aspect-ratio:auto` y
+   se estira (comportamiento default de CSS Grid) para igualar la
+   altura de `.gallery-stack` (la columna de al lado), con
+   `display:flex` centrando la imagen y `object-fit:contain` en vez
+   de `cover` — así la foto se ve completa (nunca se recorta) pero
+   con un "marco" de `--concrete-2` a los costados si la proporción
+   no llena el ancho completo de su columna. Resultado: mismo alto
+   que la columna vecina (parejo), foto completa, sin inventar un
+   recorte cuadrado. En mobile (donde las columnas se apilan y no hay
+   "columna vecina" con la que igualar) se mantiene el
+   `aspect-ratio:829/1172` fijo de V11, que ahí sí tiene sentido.
+
+3. **Unidades → 2 disponibles, 1A y 1B, primer piso**: el usuario
+   confirmó que se vendieron ambas unidades del piso 2 (201 y 202) y
+   quedan las dos del piso 1, renombradas 1A (tipo Zárraga) y 1B
+   (tipo Heredia) — se preguntó explícitamente el mapeo antes de
+   tocar nada porque no era inferible con certeza. Cambios: eyebrow y
+   meta description a "2 unidades", hero-stat a "Últimas 2
+   unidades", tabs y `h3` a "Unidad 1A · Zárraga" / "Unidad 1B ·
+   Heredia", `.unit-meta` de cada ficha de "Unidades 101 · 201 —
+   disponible en pisos 1 y 2" a simplemente "1º piso — disponible"
+   (ya no hace falta distinguir dos números de unidad ni dos pisos
+   por tipo, solo queda una de cada una). Las dimensiones de cada
+   unidad (m², ambientes) no cambian — son las mismas del PDF, siguen
+   siendo la unidad de piso 1 de cada tipo, no una unidad nueva.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
