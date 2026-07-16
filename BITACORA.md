@@ -373,6 +373,23 @@ clase `.mobile-cta`, estilo mono/acento para diferenciarlo del resto)
 y se subió `max-height` del panel desplegable de 360px a 440px para
 que no quede cortado con el ítem nuevo.
 
+### V8 — favicon
+El usuario pidió un ícono para la pestaña del navegador. Se generó
+con PIL directamente (sin dependencias nuevas): un cuadrado con
+esquinas redondeadas en `--ink` (#22242C) con la misma "L" que ya se
+usa como motivo de marca en cada `.eyebrow .angle` del sitio (dos
+barras redondeadas en `--wood` #B08659), así queda coherente con el
+resto de la identidad en vez de ser un ícono genérico aparte.
+
+Archivos: `favicon.ico` (multi-tamaño 16/32/48/64, en la raíz porque
+los navegadores lo piden ahí por default aunque haya `<link>` tags),
+`favicon.svg` (escalable, el que usan los navegadores modernos),
+`assets/icons/favicon-32.png` y `assets/icons/apple-touch-icon.png`
+(180×180, para agregar a inicio en iOS). Se generaron también
+`favicon-16.png`/`favicon-48.png` pero se borraron por no estar
+referenciados por ningún `<link>` — el `.ico` ya trae esos tamaños
+embebidos, tenerlos sueltos era bloat sin uso real.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
