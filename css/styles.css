@@ -54,9 +54,11 @@ button{font:inherit;}
 /* ---------- nav ---------- */
 header.nav{
   position:fixed; top:0; left:0; right:0; z-index:50;
-  background:rgba(237,234,227,0.88);
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
+  background:rgba(237,234,227,0.66);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);
+  backdrop-filter:blur(22px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,0.5);
+  box-shadow:0 1px 28px rgba(34,36,44,0.06);
 }
 .nav-inner{
   padding:18px clamp(20px, 5vw, 32px);
@@ -105,7 +107,9 @@ nav.links a:hover::after{transform:scaleX(1);}
 .links-mobile{
   display:flex; flex-direction:column;
   max-height:0; overflow:hidden;
-  background:var(--concrete);
+  background:rgba(237,234,227,0.85);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);
+  backdrop-filter:blur(22px) saturate(180%);
   border-top:0 solid var(--line);
   transition:max-height 0.35s ease;
 }

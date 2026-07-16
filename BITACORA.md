@@ -456,6 +456,38 @@ unidad plausible dado el contexto (distancias en cuadras/avenidas), y
 ya estaba interpretado así desde V1. No se identificó una alternativa
 mejor, se dejó como está.
 
+### V10 — navbar glass, fecha de entrega a diciembre, unidades pendiente
+Tres pedidos del usuario en un mismo mensaje:
+
+1. **Navbar estilo "vidrio opaco" Apple**: antes era
+   `rgba(237,234,227,0.88)` + `blur(10px)` sin prefijo `-webkit-`
+   (esto último era en rigor un bug — Safari/iOS no aplica
+   `backdrop-filter` sin el prefijo, así que en Safari el navbar
+   nunca tuvo blur real). Se subió a `blur(22px) saturate(180%)`
+   —el "recipe" clásico de vibrancy de Apple/Safari— con el prefijo
+   agregado, opacidad bajada a 0.66 para que se note más el vidrio, y
+   un borde superior claro + sombra suave para el efecto de canto de
+   vidrio. Antes de bajar la opacidad se calculó el contraste texto/
+   fondo en el peor caso posible (navbar sobre una zona completamente
+   negra de la foto del hero, el escenario más exigente): a 0.66 da
+   5.51:1, sigue pasando AA con margen. El menú mobile desplegable
+   recibió el mismo tratamiento pero con opacidad más alta (0.85) por
+   ser una lista larga que hay que poder leer con comodidad.
+
+2. **Fecha de entrega julio→diciembre 2027**: se buscaron todas las
+   menciones (`grep -i julio`) y se cambiaron las 4 que correspondían
+   (meta description, hero-stat, especificaciones "Obra", timeline de
+   financiación). La mención "1 ZYH (2027)" en el mapa de otros
+   edificios de AFRa no se tocó porque solo indica el año, no el mes.
+
+3. **"Últimas 4 unidades" → 2 unidades (2 ya se vendieron)**: el
+   usuario avisó que se vendieron 2 de las 4, pero **todavía no tiene
+   el dato de cuáles** (101/201/102/202) — se le preguntó
+   explícitamente para no inventar cuál unidad sigue disponible, y
+   contestó que lo resolvemos después. **No tocar el conteo de
+   unidades ni los unit-card hasta tener esa confirmación** — es un
+   dato real de disponibilidad, no algo para asumir.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
