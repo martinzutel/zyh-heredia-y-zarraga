@@ -490,6 +490,16 @@ Tres pedidos del usuario en un mismo mensaje:
 
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
+- **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
+  en el commit `c7b79d9` (navbar glass + fecha) el webhook de GitHub→
+  Vercel no disparó ningún build nuevo (el último deploy quedó
+  pegado en uno de 2 horas antes, pese a varios pushes después). No
+  se investigó la causa raíz. **Después de cada push, verificar que
+  el deploy realmente se actualizó** (`curl` algo que cambió, o
+  `npx vercel ls` y mirar el timestamp del último deploy) antes de
+  asumir que ya está en producción — si no se actualizó, correr
+  `npx --yes vercel --prod --yes` a mano como fallback, no hace falta
+  debuggear el webhook en el momento.
 - **No hay Homebrew** en este entorno → no se puede instalar
   `poppler`. Usar `pip3 install pymupdf` para cualquier trabajo futuro
   con PDFs. Para mejora/edición de imágenes, `pip3 install numpy
