@@ -291,6 +291,35 @@ Se creó y conectó todo:
   que funciona igual sin instalación global — usar ese patrón para
   cualquier comando de Vercel CLI en este proyecto de ahora en más.
 
+### V5 — encuadre del banner de obra corregido
+El usuario avisó que "el obrero del casco amarillo no se termina de
+ver bien" en el banner de obra. La causa: en V4 se había puesto
+`object-position:50% 38%` a ojo, sin medir. Se detectaron las
+coordenadas reales del casco amarillo con OpenCV (`cv2.inRange` en
+HSV + `findContours`, buscando blobs amarillos grandes) sobre
+`construction.jpg` (1440×2043 post-enhance): el casco del obrero
+principal está en y=994–1136px, o sea 48.7%–55.6% de la altura de la
+imagen. Con `38%` como centro del recorte, el banner cortaba justo
+por encima de esa zona en la mayoría de los anchos de pantalla —
+el obrero principal quedaba prácticamente fuera de cuadro.
+
+Se generaron previews reales del recorte (simulando tanto el aspect
+ratio ancho de desktop ~1920×460 como el más vertical de mobile
+~390×240) probando varios valores de `object-position` Y (30/38/45/
+50/58/65%) antes de elegir. El centro natural de la imagen (`50%
+50%`, equivalente a no poner `object-position` y dejar el default)
+resultó ser el que mejor compone en ambos extremos — muestra a los
+dos obreros completos. **Lección: para banners recortados con
+`object-fit:cover`, no elegir el `object-position` a ojo — medir la
+posición real del sujeto principal en la imagen (con detección de
+color/contornos si hace falta) y generar un preview real del recorte
+en los aspect ratios extremos (mobile muy vertical vs. desktop muy
+ancho) antes de decidir el valor.**
+
+Deploy: commit `dfd5ec1`, pusheado y verificado en producción
+(`https://zyh-heredia-y-zarraga.vercel.app/css/styles.css` ya sirve
+`object-position:50% 50%`).
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **No hay Homebrew** en este entorno → no se puede instalar
