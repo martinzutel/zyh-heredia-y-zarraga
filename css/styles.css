@@ -204,15 +204,12 @@ section{padding:clamp(64px, 10vw, 120px) 0;}
 .gallery-stack{display:grid; gap:24px;}
 .gallery-stack figure{height:308px;}
 @media (max-width:900px){
-  /* mobile: facade goes full-width at its real 3:4-ish ratio instead of a
-     short letterboxed box — bigger, the clear lead image, still zero crop */
+  /* mobile: every photo goes full-width at its own real ratio instead of a
+     fixed short box — bigger, and always the complete photo, zero crop */
   .gallery figure.tall{height:auto; aspect-ratio:829 / 1172;}
-  .gallery-stack figure{height:260px;}
-}
-@media (max-width:520px){
-  .gallery-stack{grid-template-columns:1fr 1fr;}
-  .gallery-stack figure{height:180px;}
-  .gallery-stack figcaption{left:12px; bottom:10px; font-size:10px; padding:5px 8px; max-width:calc(100% - 24px);}
+  .gallery-stack figure{height:auto;}
+  .gallery-stack figure:nth-child(1){aspect-ratio:1656 / 934;}
+  .gallery-stack figure:nth-child(2){aspect-ratio:1654 / 931;}
 }
 figcaption{
   position:absolute; left:20px; bottom:16px; z-index:2;

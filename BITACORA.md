@@ -684,6 +684,28 @@ al usar el ancho completo la imagen queda mucho más grande y
 prominente — la primera y más grande del bloque de interiores en
 mobile, en vez de una miniatura con bordes vacíos.
 
+### V16 — las dos fotos de interiores también completas en mobile
+Mismo pedido que V15 pero para las dos fotos apiladas de la galería
+(`interior-terrace.jpg` e `interior-living.jpg`). Diagnóstico
+idéntico: en mobile tenían altura fija (260px en general, 180px por
+debajo de 520px con el modo "2 en fila" lado a lado) con
+`object-fit:cover` — al no calzar esa caja con la proporción real de
+las fotos (~1,77, panorámicas), se recortaban, y en el modo 2 en fila
+de `≤520px` el recorte lateral era severo (solo se veía cerca de la
+mitad del ancho de cada foto).
+
+**Fix**: se midieron las proporciones reales exactas de ambas fotos
+(`interior-terrace.jpg` 1656×934 = 1,7730; `interior-living.jpg`
+1654×931 = 1,7766 — casi idénticas pero no exactas, así que se
+targettean por separado con `:nth-child(1)`/`:nth-child(2)` en vez de
+compartir un solo valor aproximado). Por debajo de 900px cada figura
+pasa a `height:auto` + su `aspect-ratio` real exacto, a todo el ancho
+de columna. Se sacó por completo el modo "2 en fila" de `≤520px`
+(compactaba a la mitad del ancho, lo cual iba en contra de lo pedido)
+— ahora las tres fotos de la sección de interiores se apilan en una
+sola columna a todo el ancho en cualquier tamaño de mobile, cada una
+en su proporción real, sin ningún recorte.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
