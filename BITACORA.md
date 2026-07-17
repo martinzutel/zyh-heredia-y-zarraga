@@ -780,6 +780,36 @@ renombrados, así que el riesgo es bajo si se decide cambiarlo — pero
 no se hizo sin preguntar primero. Si el usuario pide "consistencia
 total" de nuevo, este es el cabo suelto que falta.
 
+### V19 — la foto de "Living — cocina integrada" pasa a video en loop
+El usuario pasó un video (`fa5342c8-...-.MP4`, subido al pegarlo en el
+chat, guardado en `~/Downloads`) y pidió reemplazar esa foto puntual
+por el video, "estilo gif" (loop automático, sin decidir el
+usuario el detalle técnico — quedó a criterio propio), **sin cambiar
+el layout**.
+
+**Verificación del contenido antes de usarlo**: no hay `ffprobe`/
+`ffmpeg` en este entorno, así que se usó `mdls` (metadata nativa de
+macOS) para specs — H.264 en MP4, 6 segundos, 752×416, 1.29&nbsp;MB,
+sin pista de audio detectable (`afinfo` no encontró audio) — y
+`qlmanage -t` (thumbnail nativo de QuickLook, funciona con video)
+para generar un frame y confirmar visualmente que es un recorrido
+render del living/cocina/terraza con marca ZYH/AFRa — contenido
+real y acorde, no había forma de estar seguro solo por el nombre de
+archivo.
+
+**Implementación**: se copió el `.mp4` tal cual a
+`assets/images/interior-living.mp4` (H.264/MP4 ya es universalmente
+compatible en navegadores modernos, no hizo falta transcodificar sin
+`ffmpeg`). En el HTML, el `<img>` de esa figura puntual se reemplazó
+por `<video autoplay muted loop playsinline preload="metadata"
+poster="interior-living.jpg">` — `poster` reusa la foto original como
+fallback mientras carga. En CSS, se extendió el selector
+`.gallery figure img{...}` a `.gallery figure img, .gallery figure
+video{...}` para que el `object-fit:cover` y el sizing se apliquen
+igual — **cero cambios de layout**: mismo contenedor, mismo
+`aspect-ratio`/`height` según breakpoint, mismo `figcaption`, solo
+cambió qué hay adentro del `<figure>`.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
