@@ -706,6 +706,51 @@ de columna. Se sacó por completo el modo "2 en fila" de `≤520px`
 sola columna a todo el ancho en cualquier tamaño de mobile, cada una
 en su proporción real, sin ningún recorte.
 
+### V17 — URL renombrada a zarraga-y-heredia + favicon "ZYH" + deploy queue lento
+Tres cosas en esta sesión:
+
+1. **Rename del proyecto Vercel**: el usuario pidió que el link diga
+   "zarraga y heredia" (no "heredia y zarraga" — coincide con el
+   orden real de la marca en el PDF, página 1: "ZYH ... ZARRAGA Y
+   HEREDIA"; el sitio usa "Heredia y Zarraga" en el copy porque así
+   venía en la referencia del usuario, pero el link ahora sigue el
+   orden original de marca). Se usó `npx vercel project rename
+   <old> <new>` — **existe ese comando**, no hace falta recrear el
+   proyecto. Nuevo link:
+   `https://zyh-zarraga-y-heredia.vercel.app/`. El link viejo
+   (`zyh-heredia-y-zarraga.vercel.app`) puede haber dejado de
+   resolver o quedar huérfano — no se verificó a fondo, no darlo por
+   sentado si aparece en algún lado.
+
+2. **Cola de deploys de Vercel lenta/atascada**: varios `vercel
+   --prod` seguidos quedaron en estado "Queued" varios minutos sin
+   pasar a "Building" — no fue por nada de este proyecto ni de la
+   cuenta, la cola tardó pero terminó procesando todo igual (los
+   deploys atascados eventualmente terminaron en background). **Si
+   vuelve a pasar: no hace falta reintentar en loop ni asumir que
+   está roto** — esperar unos minutos y volver a chequear con
+   `vercel ls` alcanza. El alias de producción (`.vercel.app` sin
+   sufijo random) puede quedar apuntando al último deploy que sí
+   terminó mientras uno nuevo sigue en cola — o sea el sitio puede
+   estar "andando bien" aunque `vercel ls` muestre el último deploy
+   como Queued.
+
+3. **Favicon nuevo**: el usuario pidió cambiar el ícono de la
+   marquita en L (motivo de `.eyebrow .angle`) por el texto "ZYH" en
+   Fraunces, fondo negro. Se preguntó permiso para descargar el
+   archivo de Fraunces (no está instalado en el sistema, solo se
+   carga vía Google Fonts en el navegador) — el usuario **prefirió no
+   descargar nada** y usar una fuente parecida ya instalada. Se usó
+   `Didot Bold` (ya estaba disponible, se había usado también para la
+   imagen de Open Graph) sobre fondo negro puro (`#000000`, tal cual
+   pidió "fondo negro", no el `--ink` del sitio). Se regeneraron
+   `favicon.ico`, `favicon-32.png`, `apple-touch-icon.png` con PIL, y
+   `favicon.svg` con texto vectorial (`font-family:Didot, Fraunces,
+   Georgia, serif` como fallback stack, ya que el navegador que
+   renderice el SVG puede no tener Didot instalado — en ese caso cae
+   a un serif genérico, no es idéntico pero está en la misma familia
+   visual).
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
