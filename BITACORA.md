@@ -751,6 +751,35 @@ Tres cosas en esta sesión:
    a un serif genérico, no es idéntico pero está en la misma familia
    visual).
 
+### V18 — unificar el orden "Zarraga y Heredia" (así lo dice la sigla ZYH)
+El usuario notó la inconsistencia (algunos lugares "Heredia y
+Zarraga", otros al revés) y preguntó por qué. Respuesta: **ZYH
+literalmente codifica el orden** — Z(arraga) Y(=y) H(eredia) — y así
+aparece en la página 1 del PDF original ("ZARRAGA Y HEREDIA"). El
+sitio había quedado con "Heredia y Zarraga" en la mayoría de los
+textos genéricos porque así venía escrito en el HTML de referencia
+que el usuario trajo para la reescritura V3 — nunca se corrigió
+contra el orden real de marca del PDF hasta ahora.
+
+**Se cambió a "Zarraga y Heredia"** en: `<title>`, meta description,
+`og:title`, `og:image:alt`, `twitter:title`, el alt del hero-bg, el
+alt+figcaption de la foto de fachada en la galería, y el `<h2>` de
+contacto.
+
+**Se dejó sin tocar** toda instancia donde aparece "Heredia 1395"
+(hero-address, el párrafo de "El lote", "Dirección de obra" en
+contacto, y el footer) — ahí el 1395 es el número de puerta real
+sobre la calle Heredia (dato del PDF), no una cuestión de a qué
+orden de marca responde; reordenar esas frases habría sido
+gramaticalmente raro y además falso (el número no es de Zarraga).
+
+**Pendiente, no resuelto todavía**: el repo de GitHub sigue
+llamándose `zyh-heredia-y-zarraga` (no se renombró, a diferencia del
+proyecto de Vercel en V17). GitHub redirige automáticamente los repos
+renombrados, así que el riesgo es bajo si se decide cambiarlo — pero
+no se hizo sin preguntar primero. Si el usuario pide "consistencia
+total" de nuevo, este es el cabo suelto que falta.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
