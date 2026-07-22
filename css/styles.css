@@ -9,7 +9,7 @@
   --slate:#4A4D59;
   --wood:#B08659;
   --wood-deep:#835529;
-  --wood-vivid:#C48745;
+  --wood-vivid:#DA8225;
   --white:#FFFFFF;
   --line: rgba(34,36,44,0.14);
 }
@@ -141,6 +141,9 @@ nav.links a:hover::after{transform:scaleX(1);}
   position:relative; z-index:2; width:100%;
   padding-top:clamp(110px, 22vh, 180px);
   padding-bottom:clamp(48px, 9vh, 72px);
+  /* the photo behind can get busy/light in places (windows, sky) —
+     a soft shadow keeps the white text legible everywhere */
+  text-shadow:0 1px 3px rgba(0,0,0,0.55), 0 6px 24px rgba(0,0,0,0.4);
 }
 .hero-eyebrow{
   font-family:'IBM Plex Mono', monospace; font-size:clamp(10.5px, 1.6vw, 12px); letter-spacing:0.14em;
@@ -170,7 +173,7 @@ nav.links a:hover::after{transform:scaleX(1);}
   margin:clamp(26px, 5vw, 38px) auto 0;
   padding:clamp(14px, 2.4vw, 20px) clamp(20px, 3.4vw, 30px);
   border:1.5px solid var(--wood-vivid);
-  background:rgba(0,0,0,0.32);
+  background:linear-gradient(rgba(218,130,37,0.24), rgba(218,130,37,0.24)), rgba(0,0,0,0.4);
   -webkit-backdrop-filter:blur(8px);
   backdrop-filter:blur(8px);
   border-radius:2px;
@@ -179,7 +182,7 @@ nav.links a:hover::after{transform:scaleX(1);}
   font-size:clamp(14px, 2.4vw, 19px);
   letter-spacing:0.06em; text-transform:uppercase;
   color:var(--white);
-  box-shadow:0 0 0 1px rgba(196,135,69,0.28), 0 12px 34px rgba(0,0,0,0.28);
+  box-shadow:0 0 0 1px rgba(218,130,37,0.4), 0 12px 34px rgba(0,0,0,0.32);
 }
 .urgency-dot{
   position:relative;
@@ -192,7 +195,7 @@ nav.links a:hover::after{transform:scaleX(1);}
   position:absolute; inset:-9px;
   border-radius:50%;
   border:1.5px solid var(--wood-vivid);
-  animation:urgency-ping 2.4s ease-out infinite;
+  animation:urgency-ping 1.3s ease-out infinite;
 }
 @keyframes urgency-ping{
   0%{ transform:scale(0.5); opacity:0.9; }

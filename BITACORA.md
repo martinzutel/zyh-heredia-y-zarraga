@@ -1066,6 +1066,33 @@ sitio (que ya refleja el dato actualizado).
 
 No se deployea, queda commiteado localmente.
 
+### V27 — contraste del hero + badge más saturado y más rápido
+Tres pedidos sobre la portada:
+
+1. **Contraste del texto blanco del hero**: la foto de fondo tiene
+   zonas claras (ventanas iluminadas, cielo) donde el texto blanco se
+   podía perder pese al scrim. Se agregó `text-shadow` en
+   `.hero-content` (se hereda a todos los hijos: eyebrow, "ZYH",
+   dirección, stats — una sola declaración en vez de repetirla en
+   cada selector): una sombra ajustada para el borde de la letra +
+   una más grande y difusa para "levantar" el texto del fondo en
+   cualquier punto de la foto.
+
+2. **Badge más saturado**: `--wood-vivid` pasó de `#C48745` (V22) a
+   `#DA8225` — bien más intenso (saturación x2 sobre el `--wood`
+   original vs x1.45 de V22, calculado igual con `colorsys`). Además
+   el fondo del badge dejó de ser negro liso: ahora es un negro con
+   tinte cálido (`rgba(218,130,37,0.24)` superpuesto sobre
+   `rgba(0,0,0,0.4)`) para que el color se note también en el fondo,
+   no solo en el borde/punto. Se verificó contraste del texto blanco
+   contra ese fondo en el peor caso (foto negra detrás): 15.35:1,
+   sigue siendo altísimo.
+
+3. **Pulso más rápido**: `urgency-ping` pasó de 2.4s a 1.3s por
+   ciclo.
+
+No se deployea, queda commiteado localmente.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
