@@ -1172,6 +1172,41 @@ locales) es la correcta para Argentina — viene tal cual del HTML de
 referencia que trajo el usuario en la reescritura V3, nunca se
 confirmó que sea el número real correcto dígito por dígito.
 
+### V30 — imagen de Open Graph desactualizada, regenerada
+El usuario pidió actualizar la imagen que se ve al compartir el link
+(la tarjeta de WhatsApp/redes) para que muestre el mensaje de "2
+unidades" actual. Al revisar `assets/og/og-image.jpg` (creada en la
+sesión de Open Graph, antes de varios cambios posteriores) tenía tres
+cosas desactualizadas:
+- Decía "Heredia y Zarraga" (orden viejo, corregido en V18 en el
+  resto del sitio pero esta imagen es un archivo estático, no se
+  actualiza sola).
+- No mencionaba el local comercial (agregado recién en V25).
+- El color del acento mono (`AFRA ARQUITECTOS · FIDEICOMISO AL
+  COSTO`) usaba el `--wood` viejo, no el `--wood-vivid` más saturado
+  que ahora se usa en el badge del hero (V22/V27).
+
+**Se regeneró con el mismo script de PIL de la sesión original**
+(mismo pipeline: crop + scrim + viñeta + Didot/Georgia
+Italic/Menlo), cambiando: el color del acento a `#DA8225`
+(`--wood-vivid` actual), el subtítulo a "Zarraga y Heredia...", y la
+línea inferior a "ÚLTIMAS 2 UNIDADES + LOCAL COMERCIAL · ENTREGA
+DICIEMBRE 2027" (antes decía "Últimas 2 unidades · Entrega diciembre
+2027 · CABA" — se sacó "CABA" para hacer lugar al local comercial sin
+que la línea se sienta apretada; se midió el ancho con
+`draw.textlength` antes de guardar para confirmar que entra: 844px
+de 1072px disponibles).
+
+**Recordatorio para el futuro**: `og-image.jpg` es un archivo
+estático generado una vez — cualquier cambio de texto/mensaje/branding
+en el sitio que también aparezca ahí (orden de marca, unidades
+disponibles, colores de acento) hay que replicarlo a mano
+regenerando esta imagen, no se actualiza sola. Vale la pena revisarla
+cada vez que cambie algo de lo que muestra: el wordmark, la
+dirección, o el mensaje de unidades/local comercial.
+
+No se deployea, queda commiteado localmente.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
