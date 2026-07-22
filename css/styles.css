@@ -161,6 +161,41 @@ nav.links a:hover::after{transform:scaleX(1);}
 .hero-stat b{display:block; font-family:'Fraunces',serif; font-size:clamp(24px, 4vw, 30px); font-weight:500;}
 .hero-stat span{font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; opacity:0.85; white-space:nowrap;}
 
+/* urgency badge — one clear, non-redundant callout, with a soft pulse
+   instead of a literal blink so it stays inside the site's vibe */
+.urgency-badge{
+  display:inline-flex; align-items:center; gap:11px;
+  margin-top:clamp(22px, 4vw, 30px);
+  padding:10px 16px;
+  border:1px solid rgba(201,160,115,0.55);
+  background:rgba(0,0,0,0.24);
+  -webkit-backdrop-filter:blur(6px);
+  backdrop-filter:blur(6px);
+  border-radius:2px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px; letter-spacing:0.05em; text-transform:uppercase;
+  color:var(--white);
+}
+.urgency-dot{
+  position:relative;
+  width:7px; height:7px; border-radius:50%;
+  background:var(--wood);
+  flex:none;
+}
+.urgency-dot::before{
+  content:"";
+  position:absolute; inset:-6px;
+  border-radius:50%;
+  border:1px solid var(--wood);
+  animation:urgency-ping 2.4s ease-out infinite;
+}
+@keyframes urgency-ping{
+  0%{ transform:scale(0.5); opacity:0.9; }
+  75%{ transform:scale(1.9); opacity:0; }
+  100%{ transform:scale(1.9); opacity:0; }
+}
+@media (max-width:520px){ .urgency-badge{font-size:11px; padding:9px 14px; gap:9px;} }
+
 /* ---------- section shared ---------- */
 section{padding:clamp(64px, 10vw, 120px) 0;}
 .section-head{max-width:640px; margin-bottom:clamp(36px, 6vw, 56px);}

@@ -810,6 +810,47 @@ igual — **cero cambios de layout**: mismo contenedor, mismo
 `aspect-ratio`/`height` según breakpoint, mismo `figcaption`, solo
 cambió qué hay adentro del `<figure>`.
 
+### V20 — badge de "últimas 2 unidades + local comercial" en el hero
+El usuario mandó una captura del hero con anotaciones a mano (texto
+amarillo grande tipo marcador, tachando el stat chico de "Últimas 2
+unidades") y aclaró explícitamente que el garabato era solo para
+mostrar **dónde** y **cuánta fuerza** quería, no el estilo literal —
+no había que copiar letra a mano ni amarillo chillón, sino traducir
+esa intención al lenguaje visual del sitio.
+
+**Info nueva sin confirmar**: el dibujo menciona "+ LOCAL COMERCIAL"
+— un local en planta baja que no estaba en el PDF original ni se
+había mencionado antes en la conversación. Se le preguntó al usuario
+por los detalles (m², condiciones) antes de seguir, pero **no
+contestó ese punto todavía** — solo pidió seguir con el badge. Se
+agregó el texto "Últimas 2 unidades + local comercial" tal cual lo
+escribió el usuario, **sin inventar métricas ni condiciones** del
+local — si en algún momento pide una sección propia para el local
+comercial (specs, m², etc.), hay que pedir esos datos primero, no
+asumirlos.
+
+**Se evitó la redundancia** (pedido explícito): el hero ya tenía
+"Últimas 2 unidades" como sub-label del stat "3 amb" en
+`.hero-stats` — una asociación rara de por sí (el número mostrado
+era "3 amb" pero la etiqueta hablaba de cantidad de unidades, dos
+datos distintos pegados). Se corrigió ese stat a simplemente
+"Ambientes" (ahora sí coincide número↔etiqueta) y el mensaje de
+urgencia pasa a vivir en un solo lugar nuevo: `.urgency-badge`,
+debajo de los stats.
+
+**El "titilar" sin romper la estética**: en vez de parpadeo literal
+(que choca con el resto del sitio, todo sobrio/editorial), se hizo
+un punto (`.urgency-dot`) con un anillo que se expande y se
+desvanece en loop (`@keyframes urgency-ping`, 2.4s) — el mismo
+patrón de "indicador en vivo" que usan apps tipo mapas/status para
+señalar disponibilidad sin ser un parpadeo agresivo. El badge en sí
+es un chip con blur (mismo lenguaje "vidrio" del navbar de V17),
+borde fino en `--wood`, tipografía mono — nada de colores nuevos ni
+formas redondeadas (el sitio usa `border-radius:2px` en todos lados,
+se respetó). La regla global `*{animation-duration:0.001ms
+!important}` bajo `prefers-reduced-motion` ya cubre este nuevo
+`@keyframes` sin tener que agregar una excepción aparte.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
