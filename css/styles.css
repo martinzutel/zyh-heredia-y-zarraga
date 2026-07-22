@@ -227,30 +227,25 @@ section{padding:clamp(64px, 10vw, 120px) 0;}
 
 /* ---------- gallery / interiors ---------- */
 .gallery{background:var(--concrete);}
-.gallery-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:24px;}
+/* 1.56fr:1fr (instead of the old 1.4fr:1fr) is tuned so that, with every
+   figure sized off its own real aspect-ratio below, the facade column
+   and the stack column land on almost the same total height */
+.gallery-grid{display:grid; grid-template-columns:1.56fr 1fr; gap:24px;}
 @media (max-width:900px){ .gallery-grid{grid-template-columns:1fr;} }
 .gallery figure{position:relative; overflow:hidden; border-radius:2px; margin:0;}
 .gallery figure img{width:100%; height:100%; object-fit:cover; display:block;}
-/* facade is a portrait photo: fixed height matched to the stack
-   column (3 photos x 197px + 2x24px gap = 639 ≈ 640, same as .tall)
-   and object-fit:contain so the whole building always shows, never cropped */
+/* every photo is sized off its own real ratio — never flattened into a
+   fixed short box, never cropped */
 .gallery figure.tall{
-  height:640px;
+  aspect-ratio:829 / 1172;
   background:var(--concrete-2);
   display:flex; align-items:center; justify-content:center;
 }
 .gallery figure.tall img{width:100%; height:100%; object-fit:contain;}
 .gallery-stack{display:grid; gap:24px;}
-.gallery-stack figure{height:197px;}
-@media (max-width:900px){
-  /* mobile: every photo goes full-width at its own real ratio instead of a
-     fixed short box — bigger, and always the complete photo, zero crop */
-  .gallery figure.tall{height:auto; aspect-ratio:829 / 1172;}
-  .gallery-stack figure{height:auto;}
-  .gallery-stack figure:nth-child(1){aspect-ratio:1536 / 1024;}
-  .gallery-stack figure:nth-child(2){aspect-ratio:1516 / 1038;}
-  .gallery-stack figure:nth-child(3){aspect-ratio:1700 / 1272;}
-}
+.gallery-stack figure:nth-child(1){aspect-ratio:1536 / 1024;}
+.gallery-stack figure:nth-child(2){aspect-ratio:1516 / 1038;}
+.gallery-stack figure:nth-child(3){aspect-ratio:1700 / 1272;}
 figcaption{
   position:absolute; left:20px; bottom:16px; z-index:2;
   max-width:calc(100% - 40px);

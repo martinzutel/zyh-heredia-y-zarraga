@@ -973,6 +973,44 @@ ambos intentos de video terminaron revertidos).
 No se deployea — queda commiteado localmente, a la espera de que el
 usuario pida juntar cambios y subir todo.
 
+### V24 — fotos de la galería más altas y columnas balanceadas
+El usuario mandó una captura de la galería en desktop: las 3 fotos
+apiladas de la derecha se veían "acortadas y achatadas" (altura fija
+de 197px calculada en V23 para que sumen 640px, muy poco para fotos
+panorámicas ~1.4-1.5:1) y pidió agrandarlas, y de paso agrandar
+también la de fachada para que las dos columnas terminen con alturas
+parecidas.
+
+**Fix**: se sacó la altura fija en px de todas las figuras (tanto
+`.tall` como las 3 del stack) y se les puso `aspect-ratio` real a
+cada una — ya se usaba este criterio en mobile desde V16, ahora se
+extiende a desktop también, así que el bloque de media query
+`≤900px` que las redefinía quedó redundante y se borró (menos
+código, no más).
+
+**Cómo se hizo calzar el alto de las dos columnas**: al sacar la
+altura fija, cada columna termina con una altura "natural" distinta
+según su propio ancho y las proporciones de sus fotos — no coinciden
+solas. Se resolvió el sistema de ecuaciones a mano (ancho de columna
+× proporción de cada foto = alto; sumar los 3 del stack + 2 gaps de
+24px; igualar contra el alto de la fachada) para encontrar qué
+relación de columnas (`fr`) hace que ambos lados terminen
+aproximadamente iguales: pasó de `1.4fr 1fr` a `1.56fr 1fr`. A un
+ancho de contenedor de referencia (~1112px) da ~938px vs ~939px —
+prácticamente idéntico. **Ojo**: como la suma del stack tiene una
+constante fija (los 2 gaps de 24px que no escalan con el ancho), el
+calce es exacto solo en ese ancho de referencia — en otros anchos de
+pantalla queda muy cerca pero no matemáticamente perfecto (la
+diferencia introducida por esa constante es chica en relación a
+alturas de ~900-1000px, no se nota a simple vista). Ya se había
+intentado en V13 lograr esto con stretch implícito de CSS Grid y
+falló (el navegador terminaba usando la proporción intrínseca de la
+imagen igual) — esta vez se resolvió con matemática explícita en vez
+de depender de comportamiento implícito del navegador, que es lo que
+falló la primera vez.
+
+No se deployea, queda commiteado localmente.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
