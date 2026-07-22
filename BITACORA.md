@@ -1093,6 +1093,52 @@ Tres pedidos sobre la portada:
 
 No se deployea, queda commiteado localmente.
 
+### V28 — el video de fachada, esta vez verificado de verdad
+El usuario volvió a pedir explícitamente el video en la fachada
+(mismo `exterior-render.mov` de la V-revert de más arriba). Esta vez
+se hizo bien, con la verificación que faltó la primera vez:
+
+**La causa real de por qué se había abandonado antes**: `mdls` reveló
+que el códec del `.mov` es **HEVC (H.265)**, no H.264. HEVC en
+`<video>` HTML5 tiene soporte muy limitado fuera de Safari — Chrome y
+Firefox generalmente no lo reproducen. Usarlo tal cual habría dejado
+el video roto (caja vacía) para la mayoría de los visitantes.
+
+**Transcodificación sin ffmpeg**: no hay `ffmpeg`/`ffprobe` instalados
+en este entorno (ya documentado más arriba), pero **sí está
+`avconvert`** (`/usr/bin/avconvert`, parte de AVFoundation, viene con
+macOS). Se usó con un preset que no sea de los que dicen "HEVC" en el
+nombre (`Preset960x540`, que no fuerza upscale ya que la fuente es
+más chica) para asegurar salida en H.264:
+```
+avconvert --source exterior-render.mov --preset Preset960x540 \
+  --output facade-video.mp4 --replace
+```
+Resultado: mismo tamaño de fuente (414×552, no hizo upscale porque
+el preset es solo un bounding box), 24fps, ~6s, 1.7&nbsp;MB.
+
+**Verificación esta vez, antes de dar por terminado** (lo que faltó
+la primera vez): se abrió el archivo con `cv2.VideoCapture` — no solo
+para chequear que abre, sino leyendo el fourcc del códec
+directamente (`h264`, confirmado, no confiar solo en metadata de
+Spotlight/`mdls`, que a veces tarda en poblarse para archivos
+recién creados) y decodificando un frame real para confirmarlo
+visualmente (mismo edificio que el resto de las fotos de fachada).
+También se confirmó el header `Content-Type: video/mp4` que devuelve
+el server al pedir el archivo.
+
+**Implementación**: `.gallery figure.tall` — mismo patrón que el
+video de living (V19): `<video autoplay muted loop playsinline
+preload="metadata" poster="hero-building.jpg">`, con `aria-label`
+propio (no copiado de otro video, ese fue el bug de la vez pasada).
+En CSS, `aspect-ratio` de la figura pasa de `829/1172` (proporción de
+la foto vieja) a `414/552` (proporción real del video, calculado con
+`mdls`), y se recalculó la relación de columnas del grid
+(`1.56fr:1fr` → `1.66fr:1fr`, mismo método de V24: resolver el
+sistema de ecuaciones para que la columna de fachada y la del stack
+de fotos den la misma altura total) porque cambió la proporción de
+lo que hay en esa columna.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
