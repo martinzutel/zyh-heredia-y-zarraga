@@ -9,6 +9,7 @@
   --slate:#4A4D59;
   --wood:#B08659;
   --wood-deep:#835529;
+  --wood-vivid:#C48745;
   --white:#FFFFFF;
   --line: rgba(34,36,44,0.14);
 }
@@ -164,11 +165,11 @@ nav.links a:hover::after{transform:scaleX(1);}
 /* urgency badge — one clear, non-redundant callout, with a soft pulse
    instead of a literal blink so it stays inside the site's vibe */
 .urgency-badge{
-  display:inline-flex; align-items:center; flex-wrap:wrap; gap:8px 16px;
-  max-width:100%;
-  margin-top:clamp(26px, 5vw, 38px);
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px 16px;
+  width:fit-content; max-width:100%;
+  margin:clamp(26px, 5vw, 38px) auto 0;
   padding:clamp(14px, 2.4vw, 20px) clamp(20px, 3.4vw, 30px);
-  border:1.5px solid var(--wood);
+  border:1.5px solid var(--wood-vivid);
   background:rgba(0,0,0,0.32);
   -webkit-backdrop-filter:blur(8px);
   backdrop-filter:blur(8px);
@@ -178,19 +179,19 @@ nav.links a:hover::after{transform:scaleX(1);}
   font-size:clamp(14px, 2.4vw, 19px);
   letter-spacing:0.06em; text-transform:uppercase;
   color:var(--white);
-  box-shadow:0 0 0 1px rgba(176,134,89,0.18), 0 12px 34px rgba(0,0,0,0.28);
+  box-shadow:0 0 0 1px rgba(196,135,69,0.28), 0 12px 34px rgba(0,0,0,0.28);
 }
 .urgency-dot{
   position:relative;
   width:11px; height:11px; border-radius:50%;
-  background:var(--wood);
+  background:var(--wood-vivid);
   flex:none;
 }
 .urgency-dot::before{
   content:"";
   position:absolute; inset:-9px;
   border-radius:50%;
-  border:1.5px solid var(--wood);
+  border:1.5px solid var(--wood-vivid);
   animation:urgency-ping 2.4s ease-out infinite;
 }
 @keyframes urgency-ping{

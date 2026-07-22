@@ -907,6 +907,30 @@ salvaguarda: al ser bastante más grande el texto en mobile angosto
 (320–360px), sin esto el texto largo ("Últimas 2 unidades + local
 comercial") podía desbordar en vez de bajar de línea.
 
+### V22 — badge centrado y más saturado + cambio de flujo de trabajo
+Dos pedidos de estilo más chicos sobre el badge de urgencia:
+- **Centrado**: pasó de `display:inline-flex` (quedaba pegado a la
+  izquierda, alineado con el resto del contenido del hero) a
+  `display:flex; width:fit-content; margin:... auto 0;` — se centra
+  solo, sin tocar la alineación del resto del hero (que sigue a la
+  izquierda).
+- **Más saturado**: se agregó `--wood-vivid:#C48745` (mismo matiz y
+  luminosidad que `--wood`, saturación ×1.45, calculado con
+  `colorsys` en vez de a ojo) y se usa solo en el borde/punto/glow
+  del badge — no se tocó `--wood` global para no afectar el resto
+  del sitio (acentos de specs, timeline, etc.) que ya estaba bien.
+
+**Cambio de flujo de trabajo, importante para todas las sesiones
+futuras**: el usuario pidió explícitamente dejar de correr `vercel
+--prod` después de cada commit — "no hace falta que deployees todo
+el tiempo, vamos de a poco con commits y después vemos de ir
+deployeando así no gastamos operaciones en vano". Se guardó como
+memoria persistente (`deploy-batching-preference.md`) para que
+sesiones futuras no vuelvan a deployear en cada micro-cambio. **De
+ahora en más: seguir commiteando con mensajes descriptivos como
+siempre, pero NO correr `vercel --prod` salvo que el usuario lo pida
+explícitamente o se junten varios cambios para revisar juntos.**
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
