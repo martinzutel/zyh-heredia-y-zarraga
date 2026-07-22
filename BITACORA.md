@@ -1011,6 +1011,39 @@ falló la primera vez.
 
 No se deployea, queda commiteado localmente.
 
+### V25 — nueva sección "Local comercial" (dato real, ya no pendiente)
+El "local comercial" que se había mencionado sin detalle en el badge
+de urgencia (V20) finalmente tiene datos reales: el usuario mandó un
+render del local (café, foto nocturna bajo lluvia, encontrada en
+`~/Desktop/ZYH_CAFE_LOCAL_100.png` — mismo patrón de V23, los
+archivos pegados aparecen en Desktop, no siempre en Downloads) y el
+texto exacto: "Local comercial sobre calle Zarraga 35m2 con baño".
+
+**Sección nueva** `<section class="local" id="local">`, insertada
+justo después de la galería de interiores (a pedido explícito:
+"debajo de las imágenes del depto"), antes de "Obra en construcción".
+Mismo patrón de dos columnas que ya se usa en `.obra` (imagen +
+texto, fondo `--ink`), adaptado a esta foto que es panorámica
+(1600×894, no 3:4 como la de obra) — `.local-media` usa
+`aspect-ratio:1600/894` calculado contra el archivo real, mismo
+criterio de cero-recorte de siempre. Columnas `1.3fr 1fr` (más ancha
+para la imagen que en `.obra`, porque acá la imagen es panorámica en
+vez de vertical).
+
+**Copy sin chamuyo** (mismo criterio de V12): el h2 dice directamente
+"35 m² sobre calle Zarraga." — ambos datos reales en la misma
+oración en vez de una frase de venta + los datos repetidos abajo — y
+una sola línea chica "Incluye baño." reusando la clase `.unit-note`
+ya existente (con un override `.local .unit-note{color:...}` para
+que se vea bien en fondo oscuro, sin usar `!important`: se resolvió
+subiendo especificidad con un selector descendiente en vez de forzar
+la cascada).
+
+**Nada de esto se inventó** — los 3 datos (calle Zarraga, 35 m², con
+baño) son exactamente los que dio el usuario, ninguno más.
+
+No se deployea, queda commiteado localmente.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:

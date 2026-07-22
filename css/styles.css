@@ -269,6 +269,19 @@ figcaption{
 @media (max-width:900px){ .obra-media{max-width:360px; margin:0 auto;} }
 .obra-media img{width:100%; height:100%; object-fit:cover; display:block;}
 
+/* ---------- local comercial ---------- */
+.local{background:var(--ink); color:var(--white);}
+.local .eyebrow{color:rgba(255,255,255,0.68);}
+.local-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:56px; align-items:center;}
+@media (max-width:900px){ .local-grid{grid-template-columns:1fr; gap:28px;} }
+.local-media{
+  position:relative; margin:0; overflow:hidden; border-radius:2px;
+  /* real photo ratio — the space shows in full, never cropped */
+  aspect-ratio:1600 / 894;
+}
+.local-media img{width:100%; height:100%; object-fit:cover; display:block;}
+.local .unit-note{color:rgba(255,255,255,0.65);}
+
 /* ---------- units ---------- */
 .units{background:var(--concrete-2);}
 .unit-toggle-wrap{display:flex; gap:10px; margin-bottom:clamp(32px, 5vw, 44px);}
