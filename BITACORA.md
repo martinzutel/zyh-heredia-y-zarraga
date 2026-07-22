@@ -931,6 +931,48 @@ ahora en más: seguir commiteando con mensajes descriptivos como
 siempre, pero NO correr `vercel --prod` salvo que el usuario lo pida
 explícitamente o se junten varios cambios para revisar juntos.**
 
+### V23 — 3 fotos nuevas de interiores + agrega dormitorio a la galería
+El usuario pegó 3 fotos nuevas (renders de mucha mejor calidad que
+las anteriores) pidiendo reemplazar el balcón y el living, y sumar
+un dormitorio nuevo que no existía en la galería. Aclaró "el video de
+fachada queda intacto" — se interpretó como "no toques la fachada",
+no como que hubiera un video ahí (ya se había revertido a foto en el
+turno anterior).
+
+**Dónde aparecieron los archivos esta vez**: no en `~/Downloads` como
+las veces anteriores, sino directo en `~/Desktop`, con nombres ya
+descriptivos puestos por el usuario (`living-balcon-terraza.PNG`,
+`interior-living-cocina.PNG`, `dormitorio.jpg.jpeg`) en vez del UUID
+random de las veces que se pegaron en el chat. **La ubicación de los
+archivos pegados/adjuntados no es fija — buscar en Desktop y
+Downloads por fecha de modificación reciente si no aparecen donde se
+espera.**
+
+**Cambios**:
+- `interior-terrace.jpg` e `interior-living.jpg` se reemplazan con
+  las fotos nuevas (mismo nombre de archivo, contenido nuevo —
+  `interior-living.jpg` vuelve a ser foto estática, ya no hace falta
+  el `.mp4` de V19/V22, se borra por no tener más uso).
+- Nuevo `interior-bedroom.jpg` + nuevo tercer `<figure>` en
+  `.gallery-stack` con caption "Dormitorio".
+- El párrafo de la sección se actualiza para mencionar dormitorios
+  (antes solo hablaba de living/balcón).
+
+**CSS**: `.gallery-stack` pasa de 2 a 3 figuras. En desktop, la
+altura de cada figura se recalculó para que la suma siga calzando
+con los 640px de `.tall` (3×197px + 2×24px de gap ≈ 640px, mismo
+criterio que ya se usaba con 2 fotos). En mobile, se agregó el
+`aspect-ratio` exacto de la tercera foto (`nth-child(3)`) siguiendo
+el mismo patrón ya establecido en V16 — cada foto muestra su
+proporción real completa, sin recorte.
+
+**Limpieza**: se sacó el selector `.gallery figure video` del CSS
+(ya no queda ningún `<video>` en el sitio, ni fachada ni living —
+ambos intentos de video terminaron revertidos).
+
+No se deployea — queda commiteado localmente, a la espera de que el
+usuario pida juntar cambios y subir todo.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
