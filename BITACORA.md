@@ -1139,6 +1139,39 @@ sistema de ecuaciones para que la columna de fachada y la del stack
 de fotos den la misma altura total) porque cambió la proporción de
 lo que hay en esa columna.
 
+### V29 — link de WhatsApp: de wa.me a api.whatsapp.com + mensaje precargado
+El usuario reportó que el botón de WhatsApp lo mandaba a la App
+Store y, aunque ya tenía la app instalada (aparecía "Open"), tocar
+"Open" no hacía nada — el hand-off a la app nunca se completaba.
+
+**Cambio hecho**: se reemplazó `https://wa.me/5491131308007` por el
+endpoint oficial documentado de WhatsApp,
+`https://api.whatsapp.com/send?phone=5491131308007&text=...`, que en
+general es más confiable para el hand-off directo a la app que el
+acortador `wa.me` (que a veces cachea mal o agrega un salto de
+redirección de más). De paso se agregó un mensaje precargado ("Hola,
+quiero más información sobre ZYH (Zarraga y Heredia).") para que el
+chat arranque con contexto.
+
+**Límite real de este fix — importante no prometer de más**: el
+síntoma descrito (App Store → botón "Open" sin efecto) es un
+comportamiento típico de que el sistema operativo no tiene bien
+asociado el Universal Link de WhatsApp en ese momento — esto puede
+pasar por configuración del dispositivo (ej. en iOS, Ajustes →
+WhatsApp → algo relacionado a apertura de links), no necesariamente
+por el formato del link en el sitio. El cambio a `api.whatsapp.com`
+es la mejora más robusta que se puede hacer desde el código, pero si
+el problema persiste después de este cambio, probablemente sea algo
+del lado del dispositivo/navegador del usuario, no del sitio — no
+asumir que hay más margen de arreglo puramente en el HTML si esto
+sigue pasando.
+
+No se verificó el número de teléfono en sí (`5491131308007`) más
+allá de que la estructura (54 país + 9 móvil + 11 área + 8 dígitos
+locales) es la correcta para Argentina — viene tal cual del HTML de
+referencia que trajo el usuario en la reescritura V3, nunca se
+confirmó que sea el número real correcto dígito por dígito.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
