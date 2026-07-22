@@ -851,6 +851,43 @@ se respetó). La regla global `*{animation-duration:0.001ms
 !important}` bajo `prefers-reduced-motion` ya cubre este nuevo
 `@keyframes` sin tener que agregar una excepción aparte.
 
+### Revert — la fachada vuelve a ser foto (video de fachada cancelado)
+Contexto: el usuario había pedido reemplazar la foto de fachada por
+un segundo video (`exterior-render.mov`) y que ambos videos
+arrancaran solo al entrar en pantalla (IntersectionObserver). El
+trabajo se interrumpió a mitad de camino — quedó commiteado
+(`fa302f0`) un estado a medio hacer: el `<img>` de la fachada se
+reemplazó por un `<video src="hero-building.mov">` pero con **dos
+problemas reales**, no solo estéticos:
+1. El `aria-label` decía "Recorrido del living comedor con cocina
+   integrada" — copiado sin querer del video de living, describiendo
+   contenido equivocado (bug de accesibilidad real).
+2. Nunca se llegó a verificar si `.mov` (contenedor QuickTime) es
+   compatible con `<video>` en Chrome/Firefox — hay riesgo real de
+   que no reproduzca fuera de Safari y quede la caja vacía. Tampoco
+   se verificó el aspect-ratio del video contra las reglas CSS de
+   `.gallery figure.tall`, pensadas para la foto original
+   (829×1172).
+
+El usuario cortó con "no continues con los videos, olvidate de eso" —
+se interpretó como: abandonar el intento de video de fachada
+(incompleto y con bugs reales), **no** como deshacer el video de
+living (V19), que ya se había completado, probado y confirmado en un
+turno anterior. Se revirtió el `<figure class="tall">` al `<img>`
+original (`hero-building.jpg`, mismo alt/figcaption que tenía antes
+de `fa302f0`) y se borró `assets/images/hero-building.mov` (sin uso).
+No se tocó CSS porque ese commit interrumpido no había llegado a
+modificarlo.
+
+**Si en el futuro se retoma el pedido de video en la fachada**: hay
+que (1) verificar compatibilidad de códec/contenedor en un navegador
+real antes de commitear — no asumir que `.mov` funciona igual que
+`.mp4` en todos lados, (2) escribir el `aria-label` correcto para
+cada video, no copiar-pegar entre ambos, y (3) medir el aspect ratio
+real del video nuevo y decidir si las reglas de `.gallery
+figure.tall` (actualmente calculadas para la foto) necesitan
+ajustarse.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
