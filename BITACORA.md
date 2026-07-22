@@ -1044,6 +1044,28 @@ baño) son exactamente los que dio el usuario, ninguno más.
 
 No se deployea, queda commiteado localmente.
 
+### V26 — plan de pago actualizado: 40%→50% inicial, 20→16 cuotas
+El usuario avisó que cambió la modalidad de pago real del
+fideicomiso (ya no es la del PDF original). Se buscaron todas las
+menciones (`grep "40%\|20 cuotas"`) y aparecieron las 3 en el mismo
+lugar, la sección de financiación: los dos `payment-row` (Pago
+inicial / Saldo restante) y el `payment-note` que repite ambos
+números en una oración. Se cambiaron las 3 a **50% inicial / 16
+cuotas**. No hay más menciones del plan de pago en ningún otro lado
+del sitio (a diferencia de la fecha de entrega o el conteo de
+unidades, que en V10/V12 aparecían repetidos en 3-4 secciones
+distintas).
+
+**Ojo para el futuro**: el plan de pago del PDF original (40%/20
+cuotas) queda documentado como histórico en las entradas viejas de
+esta bitácora (V y anteriores) — no reescribir esas entradas
+pasadas, son el registro de qué decía el PDF en su momento. Si hace
+falta el dato original del PDF de nuevo, está en la sección "Qué es
+esto"/extracción de texto al principio de este archivo, no en el
+sitio (que ya refleja el dato actualizado).
+
+No se deployea, queda commiteado localmente.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
