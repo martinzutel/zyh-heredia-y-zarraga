@@ -888,6 +888,25 @@ real del video nuevo y decidir si las reglas de `.gallery
 figure.tall` (actualmente calculadas para la foto) necesitan
 ajustarse.
 
+### V21 — badge de urgencia más grande
+Al usuario le gustó el estilo del badge pero lo pidió "mucho más
+grande y llamativo". Se escaló todo (no solo el font-size): padding
+de `10px 16px` a `clamp(14px,2.4vw,20px) clamp(20px,3.4vw,30px)`,
+font-size de 12px fijo a `clamp(14px,2.4vw,19px)` + `font-weight:500`
+(antes heredaba 400), borde de 1px a 1.5px con color sólido
+`--wood` (antes rgba al 55%, más apagado), fondo más opaco
+(`rgba(0,0,0,0.32)` vs `0.24`), se sumó un `box-shadow` sutil con halo
+en `--wood` + sombra para que "flote" más sobre la foto, y el punto
+pulsante pasó de 7px a 11px con su anillo proporcionalmente más
+grande. Se sacó el override de mobile que lo achicaba a 11px/9px
+(quedaba contradictorio con "más grande" — ahora el `clamp()` de la
+regla base ya resuelve el tamaño en cualquier ancho).
+
+Se agregó `flex-wrap:wrap` + `max-width:100%` al badge como
+salvaguarda: al ser bastante más grande el texto en mobile angosto
+(320–360px), sin esto el texto largo ("Últimas 2 unidades + local
+comercial") podía desbordar en vez de bajar de línea.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
