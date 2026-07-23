@@ -1207,6 +1207,44 @@ dirección, o el mensaje de unidades/local comercial.
 
 No se deployea, queda commiteado localmente.
 
+### V31 — balance visual de "Local comercial"
+El usuario mandó una captura de la sección "Local comercial" en
+desktop: la foto (panorámica, 1600×894, sin tope de ancho) ocupaba
+toda la fila a la 1.3fr de columna asignada, terminando bastante alta
+(~550px), mientras la columna de texto (`h2` + una sola línea
+"Incluye baño.") medía apenas ~150px — con `align-items:center`
+quedaba un vacío grande arriba y abajo del texto, y la sección se
+sentía desbalanceada/vacía.
+
+**Diagnóstico**: el problema no era el recorte (`aspect-ratio`
+seguía dando la foto completa) sino que la foto no tenía techo de
+tamaño (a diferencia de `.obra-media`, que desde V25 ya usa
+`max-width:460px`) y el texto era demasiado poco para llenar una fila
+tan alta.
+
+**Fix, dos frentes a la vez**:
+1. Se le puso techo a la imagen (`max-width:560px`, mismo criterio
+   que `.obra-media`) — pasa de ~550px a ~313px de alto, mucho más
+   proporcionado.
+2. Se le dio más peso visual al texto sin inventar datos nuevos: el
+   `h2` pasa a "Local comercial en planta baja." (ya no repite los
+   mismos datos que van a aparecer abajo) y la única línea suelta
+   "Incluye baño." se reemplaza por una fila de 3 stats (mismo patrón
+   visual que `.unit-totals` de la sección de unidades, adaptado a
+   fondo oscuro): **Zarraga** (sobre calle) · **35 m²** (superficie)
+   · **Sí** (con baño) — los mismos 3 datos de siempre, presentados
+   con más jerarquía tipográfica en vez de una oración + una nota
+   chica.
+3. La relación de columnas del grid baja de `1.3fr:1fr` a `1.1fr:1fr`
+   (ya no hace falta cederle tanto ancho a la imagen porque tiene
+   techo propio).
+
+Con estos dos cambios juntos la diferencia de alto entre columnas
+pasa de ~400px a ~110-120px — se nota mucho menos y lee como aire
+intencional, no como una sección vacía.
+
+Se deployea directo, a pedido explícito del usuario en este mensaje.
+
 ## Limitaciones del entorno (importante para no perder tiempo de nuevo)
 
 - **El auto-deploy de Vercel al pushear a `main` no es 100% confiable**:
